@@ -11,15 +11,21 @@ NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
 <<<<<<< HEAD
+<<<<<<< HEAD
 NotebookDataLength[    621048,      11049]
 NotebookOptionsPosition[    620455,      11027]
 NotebookOutlinePosition[    620802,      11042]
 CellTagsIndexPosition[    620759,      11039]
 =======
+=======
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
 NotebookDataLength[    116104,       2356]
 NotebookOptionsPosition[    115854,       2343]
 NotebookOutlinePosition[    116201,       2358]
 CellTagsIndexPosition[    116158,       2355]
+<<<<<<< HEAD
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
+=======
 >>>>>>> parent of 9dd3c8c... improved light curve generation runtime
 WindowFrame->Normal*)
 
@@ -1246,6 +1252,7 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
         RowBox[{
          RowBox[{
 <<<<<<< HEAD
+<<<<<<< HEAD
           RowBox[{"collectorPos", "=", 
            RowBox[{"PrintTemporary", "[", 
             RowBox[{"Mean", "[", 
@@ -1330,6 +1337,14 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
              RowBox[{"If", "[", 
 =======
 >>>>>>> parent of 9dd3c8c... improved light curve generation runtime
+=======
+          RowBox[{"beamsObserved", " ", "=", " ", "0"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Do", "[", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"Which", "[", 
+             RowBox[{
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
               RowBox[{
                RowBox[{
                 RowBox[{"sortedYValues", "[", 
@@ -1340,6 +1355,7 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
                  RowBox[{"[", "i", "]"}], "]"}], ">", "lowerEdge"}]}], ",", 
               "\[IndentingNewLine]", 
               RowBox[{
+<<<<<<< HEAD
 <<<<<<< HEAD
                RowBox[{"i", "\[LessEqual]", 
                 RowBox[{"Length", "[", "sortedYValues", "]"}]}], ",", " ", 
@@ -1392,11 +1408,16 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
                RowBox[{"beamsObserved", " ", "+=", " ", "1"}], ";"}], ",", 
               "\[IndentingNewLine]", "\[IndentingNewLine]", 
 >>>>>>> parent of 9dd3c8c... improved light curve generation runtime
+=======
+               RowBox[{"beamsObserved", " ", "+=", " ", "1"}], ";"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
               RowBox[{
                RowBox[{"sortedYValues", "[", 
                 RowBox[{"[", "i", "]"}], "]"}], ">", "lowerEdge"}], ",", 
               "\[IndentingNewLine]", 
               RowBox[{
+<<<<<<< HEAD
 <<<<<<< HEAD
                RowBox[{"we", "'"}], "re", " ", "at", " ", "the", " ", 
                "end"}]}], " ", "*)"}], "\[IndentingNewLine]", 
@@ -1405,6 +1426,8 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
            "]"}], ";", "\[IndentingNewLine]", 
           RowBox[{"NotebookDelete", "[", "collectorPos", "]"}], ";"}]}], 
 =======
+=======
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
                RowBox[{"Break", "[", "]"}], ";"}]}], "\[IndentingNewLine]", 
              "]"}], ",", "\[IndentingNewLine]", 
             RowBox[{"{", 
@@ -1430,6 +1453,9 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
             RowBox[{"2", "*", 
              RowBox[{"Last", "[", "sortedYValues", "]"}]}], "-", 
             "averagingLength"}], ",", "averagingResolution"}], "}"}]}], 
+<<<<<<< HEAD
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
+=======
 >>>>>>> parent of 9dd3c8c... improved light curve generation runtime
         "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", "flux"}]}], 
      "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
@@ -1985,6 +2011,9 @@ radius corrected to \>\"", "<>", " ",
           RowBox[{"atmStep", "/", "atmMax"}], "*", "5.5"}]}], ")"}], ",", 
        RowBox[{"atmStep", "/", "atmMax"}]}], "}"}]}], "\[IndentingNewLine]", 
     "]"}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+<<<<<<< HEAD
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
+=======
 >>>>>>> parent of 9dd3c8c... improved light curve generation runtime
   RowBox[{"(*", " ", 
    RowBox[{"graphics", " ", "stuff", " ", "starts", " ", "here"}], " ", 
@@ -2048,6 +2077,9 @@ radius corrected to \>\"", "<>", " ",
     RowBox[{"TODO", " ", "-", " ", 
      RowBox[{"constrain", " ", "these", " ", "arguments"}]}], " ", "*)"}], 
    "*)"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"endTime", " ", "=", " ", 
+   RowBox[{"DateString", "[", "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"endTime", " ", "=", " ", 
    RowBox[{"DateString", "[", "]"}]}], ";"}], "\[IndentingNewLine]", 
@@ -2585,6 +2617,7 @@ radius corrected to \>\"", "<>", " ",
    3.623591827550956*^9, 3.6235918281193542`*^9}, {3.623592214493431*^9, 
    3.6235922248047705`*^9}, 3.623592430485218*^9, {3.62359268846986*^9, 
    3.623592688903155*^9}, {3.623594015438239*^9, 3.623594017881976*^9}, {
+<<<<<<< HEAD
 <<<<<<< HEAD
    3.6235940876346908`*^9, 3.6235941225845647`*^9}, {3.6236872962367992`*^9, 
    3.6236874062050714`*^9}, 3.6236877626357856`*^9, {3.623687874957759*^9, 
@@ -11046,6 +11079,9 @@ Cell[BoxData[""], "Input",
 =======
    3.6235940876346908`*^9, 3.6235941225845647`*^9}}]
 >>>>>>> parent of 9dd3c8c... improved light curve generation runtime
+=======
+   3.6235940876346908`*^9, 3.6235941225845647`*^9}}]
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
 },
 WindowSize->{1600, 817},
 WindowMargins->{{-8, Automatic}, {Automatic, -8}},
@@ -11064,6 +11100,7 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 <<<<<<< HEAD
+<<<<<<< HEAD
 Cell[CellGroupData[{
 Cell[580, 22, 126888, 2577, 10277, "Input"],
 Cell[127471, 2601, 107, 1, 23, "Print"],
@@ -11074,6 +11111,9 @@ Cell[617627, 10963, 2613, 55, 249, "Output"],
 Cell[620243, 11020, 97, 1, 23, "Print"]
 }, Open  ]],
 Cell[620355, 11024, 96, 1, 31, "Input"]
+=======
+Cell[558, 20, 115292, 2321, 9257, "Input"]
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
 =======
 Cell[558, 20, 115292, 2321, 9257, "Input"]
 >>>>>>> parent of 9dd3c8c... improved light curve generation runtime
