@@ -10,10 +10,17 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
+<<<<<<< HEAD
 NotebookDataLength[    621048,      11049]
 NotebookOptionsPosition[    620455,      11027]
 NotebookOutlinePosition[    620802,      11042]
 CellTagsIndexPosition[    620759,      11039]
+=======
+NotebookDataLength[    116104,       2356]
+NotebookOptionsPosition[    115854,       2343]
+NotebookOutlinePosition[    116201,       2358]
+CellTagsIndexPosition[    116158,       2355]
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -27,7 +34,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{"startTime", " ", "=", " ", 
-    RowBox[{"SessionTime", "[", "]"}]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{"DateString", "[", "]"}]}], ";"}], "\[IndentingNewLine]", 
   "\[IndentingNewLine]", 
   RowBox[{"(*", " ", 
    RowBox[{"Assumptions", ":", "\[IndentingNewLine]", " ", 
@@ -808,7 +815,7 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
           "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
          RowBox[{"t", "=", 
           RowBox[{
-           RowBox[{"atmMax", "*", "1001."}], "-", 
+           RowBox[{"atmMax", "*", "1000.1"}], "-", 
            RowBox[{"position", "[", 
             RowBox[{"[", "1", "]"}], "]"}]}]}], ";"}]}], " ", 
        RowBox[{"(*", " ", 
@@ -899,25 +906,8 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
               RowBox[{"Refract", "[", 
                RowBox[{"intersectionPoints", ",", "angleList", ",", "n2"}], 
                "]"}]}], "]"}], ";"}]}], " ", "\[IndentingNewLine]", "]"}], 
-         ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-         RowBox[{"(*", 
-          RowBox[{
-           RowBox[{"If", "[", 
-            RowBox[{
-             RowBox[{
-              RowBox[{
-               RowBox[{"position", "[", 
-                RowBox[{"[", "1", "]"}], "]"}], "\[Element]", " ", 
-               "Complexes"}], " ", "||", " ", 
-              RowBox[{
-               RowBox[{"position", "[", 
-                RowBox[{"[", "2", "]"}], "]"}], "\[Element]", "Complexes"}]}],
-              ",", "\[IndentingNewLine]", 
-             RowBox[{
-              RowBox[{"Print", "[", "position", "]"}], ";"}]}], 
-            "\[IndentingNewLine]", "]"}], ";"}], "*)"}], 
-         "\[IndentingNewLine]", "position"}]}], "\[IndentingNewLine]", "]"}], 
-      ";"}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+         ";", "\[IndentingNewLine]", "position"}]}], "\[IndentingNewLine]", 
+       "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
   "\[IndentingNewLine]", 
   RowBox[{"(*", " ", 
    RowBox[{
@@ -1237,36 +1227,25 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
          "and", " ", "angles"}]}], " ", "*)"}], "\[IndentingNewLine]", 
       RowBox[{
        RowBox[{"sortedYValues", " ", "=", " ", 
-        RowBox[{"Sort", "[", 
-         RowBox[{"yValues", ",", "Greater"}], "]"}]}], ";", 
-       "\[IndentingNewLine]", 
+        RowBox[{"Sort", "[", "yValues", "]"}]}], ";", "\[IndentingNewLine]", 
        RowBox[{"upperEdge", " ", "=", " ", 
-        RowBox[{"First", "[", "sortedYValues", "]"}]}], ";", 
+        RowBox[{"Last", "[", "sortedYValues", "]"}]}], ";", 
        "\[IndentingNewLine]", 
        RowBox[{"lowerEdge", " ", "=", " ", 
         RowBox[{"upperEdge", "-", "averagingLength"}]}], ";", 
        "\[IndentingNewLine]", 
        RowBox[{"flux", " ", "=", " ", 
-        RowBox[{"{", "}"}]}], ";", " ", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       "\[IndentingNewLine]", 
        RowBox[{"(*", " ", 
-        RowBox[{
-        "list", " ", "containing", " ", "number", " ", "of", " ", "collected",
-          " ", "beams"}], " ", "*)"}], "\[IndentingNewLine]", 
-       RowBox[{"collectedBeams", " ", "=", " ", 
-        RowBox[{"{", "}"}]}], ";", " ", 
-       RowBox[{"(*", " ", 
-        RowBox[{
-        "list", " ", "containing", " ", "the", " ", "actual", " ", "y", " ", 
-         "values", " ", "of", " ", "the", " ", "collected", " ", "beams"}], 
-        " ", "*)"}], "\[IndentingNewLine]", 
-       RowBox[{"upperIndex", " ", "=", " ", "0"}], ";", "\[IndentingNewLine]", 
-       RowBox[{"lowerIndex", " ", "=", " ", "0"}], ";", "\[IndentingNewLine]", 
-       RowBox[{"i", " ", "=", " ", "1"}], ";", "\[IndentingNewLine]", 
-       RowBox[{"initializedList", " ", "=", " ", "False"}], ";", 
-       "\[IndentingNewLine]", "\[IndentingNewLine]", 
-       RowBox[{"While", "[", 
-        RowBox[{"True", ",", "\[IndentingNewLine]", 
+        RowBox[{"TODO", " ", "-", " ", 
          RowBox[{
+         "can", " ", "make", " ", "this", " ", "more", " ", "efficient"}]}], 
+        " ", "*)"}], "\[IndentingNewLine]", 
+       RowBox[{"Do", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+<<<<<<< HEAD
           RowBox[{"collectorPos", "=", 
            RowBox[{"PrintTemporary", "[", 
             RowBox[{"Mean", "[", 
@@ -1274,10 +1253,15 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
               RowBox[{"upperEdge", ",", "lowerEdge"}], "}"}], "]"}], "]"}]}], 
           ";", "\[IndentingNewLine]", 
           RowBox[{"Which", "[", "\[IndentingNewLine]", 
+=======
+          RowBox[{"beamsObserved", " ", "=", " ", "0"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Do", "[", "\[IndentingNewLine]", 
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
            RowBox[{
-            RowBox[{"!", "initializedList"}], ",", " ", 
-            RowBox[{"(*", " ", 
+            RowBox[{"Which", "[", 
              RowBox[{
+<<<<<<< HEAD
              "initialize", " ", "the", " ", "list", " ", "of", " ", 
               "collected", " ", "beams"}], " ", "*)"}], "\[IndentingNewLine]", 
             RowBox[{
@@ -1344,38 +1328,19 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
              RowBox[{"lowerEdge", " ", "-=", "averagingResolution"}], ";", 
              "\[IndentingNewLine]", "\[IndentingNewLine]", 
              RowBox[{"If", "[", 
+=======
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
               RowBox[{
                RowBox[{
-                RowBox[{"Length", "[", "collectedBeams", "]"}], ">", "0"}], 
-               ",", "\[IndentingNewLine]", 
+                RowBox[{"sortedYValues", "[", 
+                 RowBox[{"[", "i", "]"}], "]"}], "<", "upperEdge"}], " ", "&&",
+                " ", 
                RowBox[{
-                RowBox[{"While", "[", 
-                 RowBox[{
-                  RowBox[{
-                   RowBox[{"First", "[", "collectedBeams", "]"}], ">", 
-                   "upperEdge"}], ",", " ", 
-                  RowBox[{"(*", " ", 
-                   RowBox[{
-                   "remove", " ", "from", " ", "the", " ", "front", " ", "of",
-                     " ", "the", " ", "list", " ", "until", " ", "boundaries",
-                     " ", "agree"}], " ", "*)"}], "\[IndentingNewLine]", 
-                  RowBox[{
-                   RowBox[{"collectedBeams", " ", "=", " ", 
-                    RowBox[{"Drop", "[", 
-                    RowBox[{"collectedBeams", ",", "1"}], "]"}]}], ";", 
-                   "\[IndentingNewLine]", 
-                   RowBox[{"If", "[", 
-                    RowBox[{
-                    RowBox[{
-                    RowBox[{"Length", "[", "collectedBeams", "]"}], 
-                    "\[Equal]", "0"}], ",", "\[IndentingNewLine]", 
-                    RowBox[{
-                    RowBox[{"Break", "[", "]"}], ";"}]}], 
-                    "\[IndentingNewLine]", "]"}], ";"}]}], 
-                 "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]",
-               "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-             RowBox[{"While", "[", 
+                RowBox[{"sortedYValues", "[", 
+                 RowBox[{"[", "i", "]"}], "]"}], ">", "lowerEdge"}]}], ",", 
+              "\[IndentingNewLine]", 
               RowBox[{
+<<<<<<< HEAD
                RowBox[{"i", "\[LessEqual]", 
                 RowBox[{"Length", "[", "sortedYValues", "]"}]}], ",", " ", 
                RowBox[{"(*", " ", 
@@ -1423,16 +1388,49 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
             "\[IndentingNewLine]", "\[IndentingNewLine]", "True", ",", " ", 
             RowBox[{"(*", " ", 
              RowBox[{
+=======
+               RowBox[{"beamsObserved", " ", "+=", " ", "1"}], ";"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
               RowBox[{
-              "none", " ", "of", " ", "the", " ", "other", " ", "conditions", 
-               " ", "is", " ", "true", " ", "anymore"}], ",", " ", 
+               RowBox[{"sortedYValues", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], ">", "lowerEdge"}], ",", 
+              "\[IndentingNewLine]", 
               RowBox[{
+<<<<<<< HEAD
                RowBox[{"we", "'"}], "re", " ", "at", " ", "the", " ", 
                "end"}]}], " ", "*)"}], "\[IndentingNewLine]", 
             RowBox[{
              RowBox[{"Break", "[", "]"}], ";"}]}], "\[IndentingNewLine]", 
            "]"}], ";", "\[IndentingNewLine]", 
           RowBox[{"NotebookDelete", "[", "collectorPos", "]"}], ";"}]}], 
+=======
+               RowBox[{"Break", "[", "]"}], ";"}]}], "\[IndentingNewLine]", 
+             "]"}], ",", "\[IndentingNewLine]", 
+            RowBox[{"{", 
+             RowBox[{"i", ",", "1", ",", 
+              RowBox[{"Length", "[", "sortedYValues", "]"}]}], "}"}]}], 
+           "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+          "\[IndentingNewLine]", 
+          RowBox[{"AppendTo", "[", 
+           RowBox[{"flux", ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Mean", "[", 
+               RowBox[{"{", 
+                RowBox[{"upperEdge", ",", "lowerEdge"}], "}"}], "]"}], ",", 
+              "beamsObserved"}], "}"}]}], "]"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"upperEdge", " ", "-=", "averagingResolution"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"lowerEdge", " ", "-=", " ", "averagingResolution"}], ";"}],
+          ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{"shift", ",", "0", ",", 
+           RowBox[{
+            RowBox[{"2", "*", 
+             RowBox[{"Last", "[", "sortedYValues", "]"}]}], "-", 
+            "averagingLength"}], ",", "averagingResolution"}], "}"}]}], 
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
         "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", "flux"}]}], 
      "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
   "\[IndentingNewLine]", 
@@ -1618,7 +1616,7 @@ radius corrected to \>\"", "<>", " ",
  RowBox[{
   RowBox[{
    RowBox[{"MakeAtmosphere", "[", 
-    RowBox[{"atmMin", ",", "atmMax", ",", "atmStep", ",", "Null"}], "]"}], 
+    RowBox[{"atmMin", ",", "atmMax", ",", "atmStep", ",", "nTable"}], "]"}], 
    ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -1947,6 +1945,7 @@ radius corrected to \>\"", "<>", " ",
           "\[IndentingNewLine]", "\[IndentingNewLine]", 
           RowBox[{"(*", " ", 
            RowBox[{
+<<<<<<< HEAD
             RowBox[{
             "if", " ", "the", " ", "light", " ", "was", " ", "extincted"}], 
             ",", " ", 
@@ -1972,6 +1971,21 @@ radius corrected to \>\"", "<>", " ",
       RowBox[{
        RowBox[{"-", "atmStep"}], "/", "atmMax"}]}], "}"}]}], 
    "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+=======
+            RowBox[{"extinctionY", " ", "=", " ", "yStart"}], ";"}]}], 
+          "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+         "\[IndentingNewLine]", 
+         RowBox[{"NotebookDelete", "[", "yMultTemp", "]"}], ";"}], ","}], 
+       "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"yMultFact", ",", "0", ",", 
+       RowBox[{"(", 
+        RowBox[{"1.", "+", 
+         RowBox[{
+          RowBox[{"atmStep", "/", "atmMax"}], "*", "5.5"}]}], ")"}], ",", 
+       RowBox[{"atmStep", "/", "atmMax"}]}], "}"}]}], "\[IndentingNewLine]", 
+    "]"}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
   RowBox[{"(*", " ", 
    RowBox[{"graphics", " ", "stuff", " ", "starts", " ", "here"}], " ", 
    "*)"}]}], "\[IndentingNewLine]", 
@@ -2035,11 +2049,15 @@ radius corrected to \>\"", "<>", " ",
      RowBox[{"constrain", " ", "these", " ", "arguments"}]}], " ", "*)"}], 
    "*)"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
+  RowBox[{"endTime", " ", "=", " ", 
+   RowBox[{"DateString", "[", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
   RowBox[{"Print", "[", 
-   RowBox[{"\"\<runtime: \>\"", " ", "<>", " ", 
-    RowBox[{"ToString", "[", 
-     RowBox[{
-      RowBox[{"SessionTime", "[", "]"}], "-", "startTime"}], "]"}]}], "]"}], 
+   RowBox[{"\"\<start: \>\"", " ", "<>", " ", "startTime"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<end: \>\"", " ", "<>", " ", "endTime"}], "]"}], 
   ";"}], "\[IndentingNewLine]"}], "Input",
  CellChangeTimes->{{3.621465705136365*^9, 3.6214657249554434`*^9}, {
    3.6214658420566463`*^9, 3.6214658727964706`*^9}, 3.621466069260022*^9, {
@@ -2567,6 +2585,7 @@ radius corrected to \>\"", "<>", " ",
    3.623591827550956*^9, 3.6235918281193542`*^9}, {3.623592214493431*^9, 
    3.6235922248047705`*^9}, 3.623592430485218*^9, {3.62359268846986*^9, 
    3.623592688903155*^9}, {3.623594015438239*^9, 3.623594017881976*^9}, {
+<<<<<<< HEAD
    3.6235940876346908`*^9, 3.6235941225845647`*^9}, {3.6236872962367992`*^9, 
    3.6236874062050714`*^9}, 3.6236877626357856`*^9, {3.623687874957759*^9, 
    3.623687877194336*^9}, {3.623687935294713*^9, 3.6236879358441105`*^9}, 
@@ -11024,6 +11043,9 @@ Cell[BoxData["\<\"runtime: 12.0585559\"\>"], "Print",
 
 Cell[BoxData[""], "Input",
  CellChangeTimes->{{3.6237003817253065`*^9, 3.6237003823267307`*^9}}]
+=======
+   3.6235940876346908`*^9, 3.6235941225845647`*^9}}]
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
 },
 WindowSize->{1600, 817},
 WindowMargins->{{-8, Automatic}, {Automatic, -8}},
@@ -11041,6 +11063,7 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
+<<<<<<< HEAD
 Cell[CellGroupData[{
 Cell[580, 22, 126888, 2577, 10277, "Input"],
 Cell[127471, 2601, 107, 1, 23, "Print"],
@@ -11051,6 +11074,9 @@ Cell[617627, 10963, 2613, 55, 249, "Output"],
 Cell[620243, 11020, 97, 1, 23, "Print"]
 }, Open  ]],
 Cell[620355, 11024, 96, 1, 31, "Input"]
+=======
+Cell[558, 20, 115292, 2321, 9257, "Input"]
+>>>>>>> parent of 9dd3c8c... improved light curve generation runtime
 }
 ]
 *)
