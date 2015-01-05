@@ -1,0 +1,590 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     23854,        581]
+NotebookOptionsPosition[     23448,        563]
+NotebookOutlinePosition[     23792,        578]
+CellTagsIndexPosition[     23749,        575]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"startTime", "=", 
+    RowBox[{"SessionTime", "[", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"TOL", " ", "=", " ", 
+   RowBox[{"10", "^", 
+    RowBox[{"-", "8"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"plutoRadius", " ", "=", " ", "1195000`64"}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"radius", " ", "in", " ", "meters"}], " ", "*)"}], "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "physical", " ", "constants", " ", "with", " ", "increased", " ", 
+    "arbitrary", " ", "precision", " ", "in", " ", "mks", " ", "units"}], 
+   "*)"}], "\n", "\n", 
+  RowBox[{"NAvagadro", " ", "=", " ", 
+   RowBox[{"6.02214129`64", "*", 
+    RowBox[{"10", "^", "23"}]}]}], ";", "  ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Avagadro", "'"}], "s", " ", "number"}], " ", "*)"}], "\n", 
+  RowBox[{"R", " ", "=", " ", "8.3144621`64"}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"J", "/", "mol"}], " ", "K"}], ";", " ", 
+    RowBox[{"universal", " ", "gas", " ", "constant"}]}], "*)"}], "\n", 
+  RowBox[{"k", " ", "=", " ", 
+   RowBox[{"1.3806488`64", "*", 
+    RowBox[{"10", "^", 
+     RowBox[{"-", "23"}]}]}]}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"m", "^", "2"}], 
+     RowBox[{"kgs", "^", 
+      RowBox[{"-", "2"}]}], 
+     RowBox[{"K", "^", 
+      RowBox[{"-", "1"}]}]}], ";", " ", 
+    RowBox[{"Boltzmann", " ", "constant"}]}], " ", "*)"}], "\n", 
+  RowBox[{"G", " ", "=", " ", 
+   RowBox[{"6.67384`64", "*", 
+    RowBox[{"10", "^", 
+     RowBox[{"-", "11"}]}]}]}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"universal", " ", "gravitational", " ", "constant"}], " ", "*)"}], 
+  "\n", "\n", 
+  RowBox[{"\[Alpha]N2", " ", "=", " ", "\n", "  ", 
+   RowBox[{"1.71`64", "*", 
+    RowBox[{"10", "^", 
+     RowBox[{"-", "30"}]}]}]}], ";", "  ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"m", "^", "3"}], ",", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"mean", " ", "polarizability", " ", "of", " ", 
+       RowBox[{"Subscript", "[", 
+        RowBox[{"N", ",", " ", "2"}], "]"}], " ", 
+       RowBox[{"gas", " ", "\\\n", 
+        RowBox[{"http", ":"}]}]}], "//", 
+      RowBox[{
+       RowBox[{"cccbdb", ".", "nist", ".", "gov"}], "/", 
+       RowBox[{"exp2", ".", 
+        RowBox[{"asp", "?", "casno"}]}]}]}], "=", "7727379"}]}], " ", "*)"}], 
+  "\n", 
+  RowBox[{"\[Mu]N2", " ", "=", " ", "0.0280134`64"}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"kg", ";", " ", 
+    RowBox[{"molar", " ", "mass", " ", "of", " ", 
+     RowBox[{"Subscript", "[", 
+      RowBox[{"N", ",", " ", "2"}], "]"}]}]}], " ", "*)"}], "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"assumed", " ", "properties", " ", "of", " ", "Pluto"}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"p0", " ", "=", " ", "0.3`64"}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"N", "/", 
+     RowBox[{"m", "^", "2"}]}], ";", " ", 
+    RowBox[{
+     RowBox[{
+     "assumed", " ", "surface", " ", "pressure", " ", "of", " ", "Pluto"}], 
+     " ", "\[Equal]", " ", 
+     RowBox[{"3", " ", "\\\n", "microbars"}]}]}], " ", "*)"}], "\n", 
+  RowBox[{"T", " ", "=", " ", "50.`64"}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"K", ";", " ", 
+    RowBox[{
+    "assumed", " ", "atmospheric", " ", "temperature", " ", "for", " ", 
+     RowBox[{"isothermal", " ", "\\\n", "model"}]}]}], " ", "*)"}], "\n", 
+  RowBox[{"MPluto", " ", "=", " ", 
+   RowBox[{"1.29`64", "*", 
+    RowBox[{"10", "^", "22"}]}]}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"kg", ";", " ", 
+    RowBox[{"mass", " ", "of", " ", "Pluto"}]}], " ", "*)"}], "\n", "\n", 
+  RowBox[{"distToObserver", " ", "=", " ", "\n", "  ", 
+   RowBox[{"5`64", "*", 
+    RowBox[{"10", "^", "12"}]}]}], ";", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"TODO", " ", "-", " ", 
+     RowBox[{
+     "average", " ", "Pluto", " ", "distance", " ", "from", " ", "Earth", " ",
+       "in", " ", "m"}]}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{"\\\n", "5"}], "*", 
+     RowBox[{"10", "^", "12"}]}]}], " ", "*)"}], "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"make", " ", "the", " ", "atmosphere"}], " ", "*)"}], "\n", 
+  RowBox[{"layers", " ", "=", " ", "100"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"atmMin", " ", "=", " ", "plutoRadius"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"atmMax", " ", "=", " ", "1500000`64"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"atmStep", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"atmMax", " ", "-", " ", "atmMin"}], ")"}], "/", "layers"}]}], 
+   ";"}], "\[IndentingNewLine]", "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "local", " ", "gravity", " ", "as", " ", "a", " ", "function", " ", "of", 
+    " ", "r"}], "*)"}], 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Gravity", "[", 
+     RowBox[{"r_", ",", "M_"}], "]"}], ":=", 
+    RowBox[{"G", "*", 
+     RowBox[{"M", "/", 
+      RowBox[{"r", "^", "2"}]}]}]}], ";"}], "\[IndentingNewLine]", "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"barometric", " ", "formula"}], "-", 
+    RowBox[{
+    "pressure", " ", "as", " ", "a", " ", "function", " ", "of", " ", 
+     "height"}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Pressure", "[", 
+     RowBox[{
+     "p0_", ",", "M_", ",", "h_", ",", "T_", ",", "r0_", ",", "Mplanet_"}], 
+     "]"}], ":=", 
+    RowBox[{"p0", " ", 
+     RowBox[{"E", "^", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", "M"}], " ", 
+          RowBox[{"Gravity", "[", 
+           RowBox[{
+            RowBox[{"h", "+", "r0"}], ",", "Mplanet"}], "]"}], " ", "h"}], 
+         ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{"R", " ", "T"}], ")"}]}], ")"}]}]}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"SetAtmProperty", "[", 
+     RowBox[{"startValue_", ",", "stopValue_", ",", "numShells_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"startValue", "\[Equal]", "stopValue"}], ",", " ", 
+        RowBox[{"(*", " ", 
+         RowBox[{"no", " ", "variation"}], " ", "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"ConstantArray", "[", 
+         RowBox[{"startValue", ",", "numShells"}], "]"}], ",", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{"linear", " ", "variation"}], " ", "*)"}], 
+        "\[IndentingNewLine]", 
+        RowBox[{"Range", "[", 
+         RowBox[{"startValue", ",", "stopValue", ",", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"stopValue", "-", "startValue"}], ")"}], "/", 
+           RowBox[{"(", 
+            RowBox[{"numShells", "-", "1"}], ")"}]}]}], "]"}]}], 
+       "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.6287236628334637`*^9, 3.628723667698938*^9}, {
+   3.6287237853814445`*^9, 3.6287238229042997`*^9}, {3.6287238745009127`*^9, 
+   3.6287238936985054`*^9}, {3.6287240220336*^9, 3.6287240561668205`*^9}, {
+   3.6287242933481236`*^9, 3.6287242939205065`*^9}, {3.628724334689458*^9, 
+   3.628724340788787*^9}, {3.6287244743455567`*^9, 3.6287245557362833`*^9}, {
+   3.6287246169737425`*^9, 3.6287246354638643`*^9}, {3.6287247558182573`*^9, 
+   3.6287247665238843`*^9}, {3.6287255613704*^9, 3.6287255829377193`*^9}, {
+   3.6287257325398664`*^9, 3.6287258347864213`*^9}, {3.6287260179767466`*^9, 
+   3.6287260233685656`*^9}, {3.62872694143425*^9, 3.628726959020729*^9}, {
+   3.628727037335637*^9, 3.628727045220256*^9}, {3.6294742627265*^9, 
+   3.6294743286402936`*^9}, {3.6294743755315437`*^9, 3.629474384663025*^9}, {
+   3.629474439798169*^9, 3.6294745719704027`*^9}, {3.6294746127714353`*^9, 
+   3.6294746983521347`*^9}, {3.6294750037938733`*^9, 
+   3.6294750273766265`*^9}, {3.629475295476877*^9, 3.629475312597025*^9}, {
+   3.629476497606343*^9, 3.6294765203614926`*^9}, 3.6294765725125246`*^9, 
+   3.629476606028306*^9, {3.62947667911814*^9, 3.6294767382481008`*^9}, {
+   3.62947754386133*^9, 3.6294775542136765`*^9}, {3.6294777647680717`*^9, 
+   3.629477779885798*^9}, {3.6294785038773737`*^9, 3.62947851500527*^9}, {
+   3.6294788890166597`*^9, 3.6294789014084563`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"MakeAtmosphereSection", "[", 
+     RowBox[{
+     "r0_", ",", "r1_", ",", "MPlanet_", ",", "sectionShells_", ",", "T0_", 
+      ",", "T1_", ",", "M0_", ",", "M1_", ",", "nDens0_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "radii", ",", "temps", ",", "mmw", ",", "P0", ",", "pressures", ",", 
+        "nDens"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"radii", " ", "=", " ", 
+        RowBox[{"SetAtmProperty", "[", 
+         RowBox[{"r0", ",", "r1", ",", "sectionShells"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"temps", " ", "=", " ", 
+        RowBox[{"SetAtmProperty", "[", 
+         RowBox[{"T0", ",", "T1", ",", "sectionShells"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"mmw", " ", "=", " ", 
+        RowBox[{"SetAtmProperty", "[", 
+         RowBox[{"M0", ",", "M1", ",", "sectionShells"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"P0", "=", 
+        RowBox[{"nDens0", " ", "k", " ", "T0"}]}], ";", "\[IndentingNewLine]",
+        "\[IndentingNewLine]", 
+       RowBox[{"pressures", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"nDens", " ", "=", " ", 
+        RowBox[{"{", "nDens0", "}"}]}], ";", "\[IndentingNewLine]", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Do", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"AppendTo", "[", 
+           RowBox[{"pressures", ",", 
+            RowBox[{"Pressure", "[", 
+             RowBox[{"P0", ",", 
+              RowBox[{"mmw", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], ",", 
+              RowBox[{"radii", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], ",", 
+              RowBox[{"temps", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], ",", "MPlanet", ",", "r0"}], 
+             "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"AppendTo", "[", 
+           RowBox[{"nDens", ",", 
+            RowBox[{
+             RowBox[{"pressures", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], "/", 
+             RowBox[{"(", 
+              RowBox[{"k", " ", 
+               RowBox[{"temps", "[", 
+                RowBox[{"[", "i", "]"}], "]"}]}], ")"}]}]}], "]"}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", 
+           RowBox[{"Length", "[", "radii", "]"}]}], "}"}]}], 
+        "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Return", "[", 
+        RowBox[{"{", 
+         RowBox[{
+         "radii", ",", "temps", ",", "mmw", ",", "pressures", ",", "nDens"}], 
+         "}"}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "joins", " ", "several", " ", "atmosphere", " ", "sections", " ", 
+    "consecutively", " ", 
+    RowBox[{"(", 
+     RowBox[{
+     "no", " ", "additional", " ", "ordering", " ", "or", " ", "continuity", 
+      " ", "assumptions"}], " "}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "takes", " ", "a", " ", "list", " ", "of", " ", "atmosphere", " ", 
+    "sections", " ", 
+    RowBox[{"(", 
+     RowBox[{"list", " ", "of", " ", "lists"}], ")"}], " ", "as", " ", "an", 
+    " ", "argument"}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"JoinAtmosphereSections", "[", "sections_", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "radii", ",", "temps", ",", "mmw", ",", "pressures", ",", "nDens"}], 
+      "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"radii", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"temps", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"mmw", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"pressures", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"nDens", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Do", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"radii", "=", " ", 
+          RowBox[{"Join", "[", 
+           RowBox[{"radii", ",", 
+            RowBox[{"sections", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "1"}], "]"}], "]"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"temps", "=", 
+          RowBox[{"Join", "[", 
+           RowBox[{"temps", ",", 
+            RowBox[{"sections", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "2"}], "]"}], "]"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"mmw", "=", 
+          RowBox[{"Join", "[", 
+           RowBox[{"mmw", ",", 
+            RowBox[{"sections", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "3"}], "]"}], "]"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"pressures", "=", 
+          RowBox[{"Join", "[", 
+           RowBox[{"pressures", ",", 
+            RowBox[{"sections", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "4"}], "]"}], "]"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"nDens", "=", 
+          RowBox[{"Join", "[", 
+           RowBox[{"nDens", ",", 
+            RowBox[{"sections", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "5"}], "]"}], "]"}]}], "]"}]}], ";"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", 
+          RowBox[{"Length", "[", "sections", "]"}]}], "}"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", 
+       RowBox[{"{", 
+        RowBox[{
+        "radii", ",", "temps", ",", "mmw", ",", "pressures", ",", "nDens"}], 
+        "}"}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"r0", "=", "plutoRadius"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"r1", "=", 
+   RowBox[{"1.25", "*", "plutoRadius"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"r2", " ", "=", " ", 
+   RowBox[{"1.5", "*", "plutoRadius"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MPlanet", "=", "MPluto"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"sectionShells", "=", "100"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"T0", "=", "50"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"T1", "=", "75"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"T2", " ", "=", " ", "75"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"M0", "=", "\[Mu]N2"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"M1", "=", "\[Mu]N2"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"M2", "=", "\[Mu]N2"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nDens0", "=", 
+    RowBox[{"10", "^", "22"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sec1", "=", 
+   RowBox[{"MakeAtmosphereSection", "[", 
+    RowBox[{
+    "r0", ",", "r1", ",", "MPlanet", ",", "sectionShells", ",", "T0", ",", 
+     "T1", ",", "M0", ",", "M1", ",", "nDens0"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sec2", "=", 
+   RowBox[{"MakeAtmosphereSection", "[", 
+    RowBox[{
+    "r1", ",", "r2", ",", "MPlanet", ",", "sectionShells", ",", "T1", ",", 
+     "T2", ",", "M1", ",", "M2", ",", "nDens0"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"a", " ", "=", " ", 
+   RowBox[{"JoinAtmosphereSections", "[", 
+    RowBox[{"{", "sec1", "}"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"a", "[", 
+   RowBox[{"[", "5", "]"}], "]"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"a", "[", 
+  RowBox[{"[", "5", "]"}], "]"}]}], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQBWIQ/U10XsJarteOi94sygTRbHdPF4Lofewb20C00n2V
+qSA6rkNhGYg+8GbxehDdfmj+ERCdxvpdcR2QbkoXMQLRK614zEB01a9T5iCa
+02yiLYielZLoAqIPHImJA9FXd8zJAtFClcsLQfQOpuJSEC18bHE9iP53NrkF
+RHseS+4C0WLLzoBpnl87N4DoDWV9h0B014yYkyA6YW3kHRD9hb/uI4h+XP9Y
+cD2QPpP7ShJEL/my2ARE1/R8tALRBSpOTiD63bRAdxAdxSDhAaKDalNPg+gj
+/02fg2gGOYXXINq9WO0TiHaszPkGoqe0bQHTKs8O/APRKRP6GTYAaQDQ8qbT
+
+  "]],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{}, 
+    {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.01388888888888889], 
+     AbsoluteThickness[1.6], PointBox[CompressedData["
+1:eJxVy39M1HUcx/GvQIcgWhQWEcJBZkh6Spz87OB1AvL7OA4ODoKTTgihQzEB
++eVxOJgytAEl44dlOqf8KGMJzaHkGbKhBwER4EAFRCQQCGG6ENyq9Xn/0Wf7
+7LPH57mXneqgLMmA47ikf+6/739nwbtiIJTXs6D1ZR/4v9fC+/UrhkYj5NeQ
+mxqnT+8gW0D1m80JiyayJfJGjFPma8jW+PNNn3Mvi8l8eILbLz5Etkf61ti/
+rsaRNyNZ5VW+L4C8Bee/kmdCSHZA+6nZGQmf7Ajd4n3PL8zI2yDftpy68rSA
+WYCUu6tSdz15J+SC3r7fL5Cd8GDDYm2XhvwhtkfuTLSNITtjk8+xSb0zWYiT
+xo/GejeQd2Grs/Om7TMaZhccdjFLHu0gu6JfX1f2+BzZDR6hNw6JNWR3XJ9V
+Tc3Hkj3wxu1H/XOuZE9YDrXYiDaSP0JZdWDzyOJRZhGGvl0u7uwleyGsa7rE
+4AeyN7L851pPnCIDpiK1ZayaWQuUegRdzAymLkabV7d62JG6GLYHirOPm1Lf
+Dfv9u4bzZvJZ342Dbtcu/nSHmfPB6dHl5y6N1H2QdqB9aqWUui9sm9qrjdKo
++2Kv8jMnqYS6H/pHRgbv76Duh3vp/S3fmVPfgzu8mpfXlvJY34MH8fNjpoPM
+nD8qWpdOV12l7o8WHj8qsZZ6AAz2OSrTNNQDwG15MffjJ9QDYe5XGSD0ox6I
+S5s3Ni84UA/Cra6TOVNm1IMwoDGcfOtpLuvBiGtI8CscYNYGo0KknLVvpR6C
+M2G5gtVvqIeg3W5aZVZEPRSBmccnZCnUQ1Hu3G3WI6EugfJTnUgrpC7B2NE/
+hpKsqIeh+qHYu4CjHoYnvU7D+sc5rEuhzs81D+5mhhRrcnZIV68wa6WYT24w
+HK1h1kmxfqqgdrGQ9uH4WJdR4pJC+3D4KA6LG6S0D8ekotA91I324eiuapm2
+4dNehi89BV02a2kvQ5+pcXzIQjbby2DCk1pdususk4HnYFQkuMnMRUCRwFk/
+rGdGBC7ceJF0s4L2EYgfyJnS59E+Ap2irvfXJNE+EktKrilBQvtIFEXcM51x
+pX0kBAaDt87Y0T4SlxPWqbPX0V4OjHuU5T87wvZyfG5y/Ze6UWatHLFO2ZWr
+t5l1cnyQOnH2SDMzF4X3Sp9lvH2W9lEwSXz3+/ES2keBZ6EY78mgfRSii+Yb
+J/bSPhr1rzTWWQfTPhqqV1sycl1oH413+OWXV+1oHw3Fz1bPz6+nvQKjVZpZ
+9XIW2yvQ2SEUxk4yaxVotF1JT+1j1ilgpevx/7qNmYvBr5VPlIv1tI9Bu3Vb
+fEpllu/fPDbIqg==
+      "]]}, {}}, {}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{None, None},
+  AxesOrigin->{0, 6.500000000000001*^21},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{},
+  PlotRange->{{0., 101.}, {6.666666666666667*^21, 1.*^22}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{{3.6294804384683514`*^9, 3.6294804665672903`*^9}, 
+   3.629481568987691*^9, {3.6294816299589376`*^9, 3.6294816628823013`*^9}, {
+   3.629481746888911*^9, 3.6294817861097546`*^9}, {3.629481867708644*^9, 
+   3.6294818736358504`*^9}, 3.6294819099646454`*^9, {3.6294819749167204`*^9, 
+   3.629481989478051*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "10000000000000000000000", ",", "1.`*^22", ",", "9.949748743718593`*^21", 
+   ",", "9.9`*^21", ",", "9.850746268656716`*^21", ",", 
+   "9.801980198019802`*^21", ",", "9.75369458128079`*^21", ",", 
+   "9.705882352941177`*^21", ",", "9.658536585365853`*^21", ",", 
+   "9.611650485436893`*^21", ",", "9.565217391304348`*^21", ",", 
+   "9.519230769230768`*^21", ",", "9.473684210526315`*^21", ",", 
+   "9.428571428571428`*^21", ",", "9.383886255924172`*^21", ",", 
+   "9.339622641509435`*^21", ",", "9.295774647887325`*^21", ",", 
+   "9.252336448598131`*^21", ",", "9.209302325581395`*^21", ",", 
+   "9.166666666666667`*^21", ",", "9.12442396313364`*^21", ",", 
+   "9.08256880733945`*^21", ",", "9.041095890410958`*^21", ",", "9.`*^21", 
+   ",", "8.959276018099548`*^21", ",", "8.91891891891892`*^21", ",", 
+   "8.878923766816144`*^21", ",", "8.839285714285714`*^21", ",", 
+   "8.799999999999999`*^21", ",", "8.761061946902655`*^21", ",", 
+   "8.722466960352423`*^21", ",", "8.684210526315788`*^21", ",", 
+   "8.646288209606987`*^21", ",", "8.608695652173913`*^21", ",", 
+   "8.571428571428572`*^21", ",", "8.534482758620691`*^21", ",", 
+   "8.497854077253218`*^21", ",", "8.461538461538462`*^21", ",", 
+   "8.425531914893617`*^21", ",", "8.389830508474575`*^21", ",", 
+   "8.354430379746836`*^21", ",", "8.319327731092437`*^21", ",", 
+   "8.284518828451882`*^21", ",", "8.25`*^21", ",", "8.215767634854772`*^21", 
+   ",", "8.181818181818182`*^21", ",", "8.148148148148148`*^21", ",", 
+   "8.114754098360656`*^21", ",", "8.081632653061225`*^21", ",", 
+   "8.048780487804879`*^21", ",", "8.016194331983805`*^21", ",", 
+   "7.983870967741936`*^21", ",", "7.951807228915662`*^21", ",", "7.92`*^21", 
+   ",", "7.888446215139443`*^21", ",", "7.857142857142857`*^21", ",", 
+   "7.826086956521739`*^21", ",", "7.795275590551182`*^21", ",", 
+   "7.764705882352941`*^21", ",", "7.734375`*^21", ",", 
+   "7.704280155642023`*^21", ",", "7.674418604651163`*^21", ",", 
+   "7.644787644787645`*^21", ",", "7.615384615384615`*^21", ",", 
+   "7.586206896551724`*^21", ",", "7.557251908396946`*^21", ",", 
+   "7.52851711026616`*^21", ",", "7.5`*^21", ",", "7.471698113207547`*^21", 
+   ",", "7.443609022556391`*^21", ",", "7.415730337078652`*^21", ",", 
+   "7.388059701492537`*^21", ",", "7.360594795539033`*^21", ",", 
+   "7.333333333333333`*^21", ",", "7.306273062730628`*^21", ",", 
+   "7.279411764705882`*^21", ",", "7.252747252747253`*^21", ",", 
+   "7.226277372262773`*^21", ",", "7.2`*^21", ",", "7.173913043478261`*^21", 
+   ",", "7.148014440433213`*^21", ",", "7.122302158273381`*^21", ",", 
+   "7.096774193548387`*^21", ",", "7.071428571428572`*^21", ",", 
+   "7.04626334519573`*^21", ",", "7.02127659574468`*^21", ",", 
+   "6.996466431095406`*^21", ",", "6.971830985915492`*^21", ",", 
+   "6.947368421052632`*^21", ",", "6.923076923076924`*^21", ",", 
+   "6.898954703832752`*^21", ",", "6.875`*^21", ",", "6.85121107266436`*^21", 
+   ",", "6.827586206896552`*^21", ",", "6.804123711340206`*^21", ",", 
+   "6.78082191780822`*^21", ",", "6.757679180887372`*^21", ",", 
+   "6.734693877551021`*^21", ",", "6.711864406779661`*^21", ",", 
+   "6.68918918918919`*^21", ",", "6.666666666666667`*^21"}], "}"}]], "Output",
+ CellChangeTimes->{{3.6294804384683514`*^9, 3.6294804665672903`*^9}, 
+   3.629481568987691*^9, {3.6294816299589376`*^9, 3.6294816628823013`*^9}, {
+   3.629481746888911*^9, 3.6294817861097546`*^9}, {3.629481867708644*^9, 
+   3.6294818736358504`*^9}, 3.6294819099646454`*^9, {3.6294819749167204`*^9, 
+   3.6294819894830523`*^9}}]
+}, Open  ]]
+},
+WindowSize->{1584, 817},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (December 4, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 8467, 214, 1052, "Input"],
+Cell[CellGroupData[{
+Cell[9050, 238, 8260, 212, 1092, "Input"],
+Cell[17313, 452, 2545, 52, 225, "Output"],
+Cell[19861, 506, 3571, 54, 176, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
