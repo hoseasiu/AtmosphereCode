@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    137136,       2495]
-NotebookOptionsPosition[    136694,       2476]
-NotebookOutlinePosition[    137070,       2492]
-CellTagsIndexPosition[    137027,       2489]
+NotebookDataLength[    137248,       2499]
+NotebookOptionsPosition[    136806,       2480]
+NotebookOutlinePosition[    137182,       2496]
+CellTagsIndexPosition[    137139,       2493]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -24,9 +24,9 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{"startTime", "=", 
-    RowBox[{"SessionTime", "[", "]"}]}], ";"}], "\[IndentingNewLine]", "\n", 
+    RowBox[{"SessionTime", "[", "]"}]}], ";"}], "\n", "\n", 
   RowBox[{"(*", " ", 
-   RowBox[{"import", " ", "constants"}], " ", "*)"}]}], "\n", 
+   RowBox[{"import", " ", "constants"}], " ", "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -44,8 +44,8 @@ Cell[BoxData[{
         RowBox[{"{", 
          RowBox[{"\"\<Data\>\"", ",", "1"}], "}"}]}], "]"}], "[", 
       RowBox[{"[", 
-       RowBox[{";;", ",", "2"}], "]"}], "]"}], "]"}]}], ";"}], "\n", 
-  "\[IndentingNewLine]", 
+       RowBox[{";;", ",", "2"}], "]"}], "]"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\n", 
   RowBox[{"(*", 
    RowBox[{
    "local", " ", "gravity", " ", "as", " ", "a", " ", "function", " ", "of", 
@@ -57,13 +57,14 @@ Cell[BoxData[{
      RowBox[{"r_", ",", "M_"}], "]"}], ":=", 
     RowBox[{"G", "*", 
      RowBox[{"M", "/", 
-      RowBox[{"r", "^", "2"}]}]}]}], ";"}], "\n", "\[IndentingNewLine]", 
+      RowBox[{"r", "^", "2"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
   RowBox[{"(*", 
    RowBox[{
     RowBox[{"barometric", " ", "formula"}], "-", 
     RowBox[{
     "pressure", " ", "as", " ", "a", " ", "function", " ", "of", " ", 
-     "height"}]}], "*)"}]}], "\[IndentingNewLine]", 
+     "height"}]}], "*)"}]}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -84,7 +85,7 @@ Cell[BoxData[{
          ")"}], "/", 
         RowBox[{"(", 
          RowBox[{"R", " ", "T"}], ")"}]}], ")"}]}]}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\n", 
+  "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -136,7 +137,7 @@ Cell[BoxData[{
        RowBox[{"Return", "[", 
         RowBox[{"{", 
          RowBox[{"m", ",", "b"}], "}"}], "]"}], ";"}]}], 
-     "\[IndentingNewLine]", "]"}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -271,7 +272,7 @@ Cell[BoxData[{
          RowBox[{
          "radii", ",", "temps", ",", "M", ",", "pressures", ",", "\[Rho]n", 
           ",", "\[Alpha]"}], "}"}], "]"}], ";"}]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\n", 
+  "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -344,7 +345,7 @@ Cell[BoxData[{
          RowBox[{
          "radii", ",", "temps", ",", "M", ",", "pressures", ",", "\[Rho]n", 
           ",", "\[Alpha]"}], "}"}], "]"}], ";"}]}], "\[IndentingNewLine]", 
-     "]"}]}], ";"}], "\[IndentingNewLine]"}], "\n", 
+     "]"}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -1198,8 +1199,9 @@ Cell[BoxData[{
 Cell[BoxData["\<\"exported atmosphere to /Users/Hosea/Dropbox \
 (MIT)//Academic/12.ThG/TestAtmospheres/constructedAtmosphere1.tsv\"\>"], \
 "Print",
- CellChangeTimes->{3.630157496640812*^9, 3.6301578273040752`*^9, 
-  3.630181430864747*^9}],
+ CellChangeTimes->{
+  3.630157496640812*^9, 3.6301578273040752`*^9, 3.630181430864747*^9, {
+   3.6302511270437593`*^9, 3.6302511353116355`*^9}}],
 
 Cell[BoxData[
  GraphicsBox[{{}, {{InsetBox[
@@ -2471,7 +2473,9 @@ YjFLWMoylrOClaxiNWtYyzrWs4GNbGIzW9jKNrazg491g8Hu
       "InsetString"]}}, {}},
   ContentSelectable->True,
   PlotRangePadding->{6, 5}]], "Output",
- CellChangeTimes->{3.6301578282547503`*^9, 3.6301814314861884`*^9}]
+ CellChangeTimes->{
+  3.6301578282547503`*^9, 3.6301814314861884`*^9, {3.6302511275631285`*^9, 
+   3.630251135737957*^9}}]
 }, Open  ]]
 },
 WindowSize->{1600, 817},
@@ -2491,11 +2495,11 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 44734, 1020, 4504, "Input"],
+Cell[558, 20, 44737, 1021, 4504, "Input"],
 Cell[CellGroupData[{
-Cell[45317, 1044, 6956, 151, 474, "Input"],
-Cell[52276, 1197, 238, 4, 26, "Print"],
-Cell[52517, 1203, 84161, 1270, 425, "Output"]
+Cell[45320, 1045, 6956, 151, 474, "Input"],
+Cell[52279, 1198, 292, 5, 26, "Print"],
+Cell[52574, 1205, 84216, 1272, 425, "Output"]
 }, Open  ]]
 }
 ]
