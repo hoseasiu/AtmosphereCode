@@ -1,0 +1,425 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     14575,        416]
+NotebookOptionsPosition[     12476,        350]
+NotebookOutlinePosition[     13123,        372]
+CellTagsIndexPosition[     13080,        369]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Least Squares Fitting Demo Notebook", "Title",
+ CellChangeTimes->{{3.630179600010785*^9, 3.630179602258831*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["\<\
+13 January 2015
+asb\
+\>", "Subtitle",
+ CellChangeTimes->{{3.630179606724724*^9, 3.630179612140378*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[CellGroupData[{
+
+Cell["Initialization", "Section",
+ CellChangeTimes->{{3.63017955832763*^9, 3.63017956161444*^9}, {
+  3.630776024353587*^9, 3.6307760255184183`*^9}}],
+
+Cell["<<jleGroup`", "Input",
+ CellChangeTimes->{{3.630179551149659*^9, 3.630179553245146*^9}, 
+   3.6307818210133257`*^9},
+ ImageRegion->{{0, 1}, {0, 1}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Create lsCoor and lsData", "Section",
+ CellChangeTimes->{{3.6301795805452833`*^9, 3.630179588913692*^9}, {
+  3.630179710178578*^9, 3.630179723252007*^9}, {3.6301993450031023`*^9, 
+  3.6301993598849297`*^9}}],
+
+Cell["\<\
+(*\"lsCoor\" gives the coordinates, or independent variable*)
+lsCoor = Range[-3*10^6, 3*10^6, 5*10^3];\
+\>", "Input",
+ CellChangeTimes->{{3.6301797460512953`*^9, 3.630179747420521*^9}, {
+   3.630179794766114*^9, 3.630179821585829*^9}, {3.6307730951869965`*^9, 
+   3.6307731393517933`*^9}, {3.6307736615187583`*^9, 3.630773668166468*^9}, {
+   3.6307750648578873`*^9, 3.6307750702587147`*^9}, 3.630775160021343*^9, {
+   3.6307773571813354`*^9, 3.63077735763166*^9}, {3.6307810618191986`*^9, 
+   3.630781066729658*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["\<\
+(*Create the model function*)
+fcn[p_, c_] :=
+Module[{rSurf, tSurf, MGas, i},
+
+(* unpack and feed in parameters *)
+{rSurf,tSurf,MGas} = p;
+
+(* make the atmosphere model *)  
+r0=rPluto;
+r1=r0+(50*1000);
+r2=r1+(100*1000);
+r3=r2+(200*1000);
+r4=r3+(500*1000);
+(*radii={r0,r1,r2,r3,r4};*)
+radii={rSurf,r1,r2,r3,r4};
+
+MPlanet=MPluto;
+(*sectionShells={20,50,30,30};*)
+sectionShells={20,25,15,15};
+boundaryT={tSurf,40,60,50,70};
+boundaryM=ConstantArray[MGas,Length[radii]];(*constant composition*)
+P0=0.3;
+boundary\[Alpha]z={0.0000001,0.0000001,0,0,0};(*only haze at the bottom \
+layer-TODO using arbitrary number for now*)
+boundary\[Alpha]=ConstantArray[\[Alpha]N2,Length[radii]]; (* mean \
+polarizability - here, we assume everything is N2 gas *)
+exportFolderPath=\"/Users/Hosea/Dropbox \
+(MIT)//Academic/12.ThG/TestAtmospheres\";
+
+params={radii,boundaryT,boundaryM,sectionShells,P0,boundary\[Alpha]z,boundary\
+\[Alpha],MPluto};
+makeAtmosphere[params,exportFolderPath,1];
+
+atmosphere = makeAtmosphereFromOpticalParams[
+   Import[\"C:\\\\Users\\\\Hosea\\\\Dropbox \\
+(MIT)\\\\Academic\\\\12.ThG\\\\TestAtmospheres\\\\constructedAtmosphere1.TSV\",
+     \"HeaderLines\" -> 1], 1, 8, 6];
+
+(* make the lightcurve *)
+rayTrace[];
+interpolateLC[];
+  
+  N[Table[twoLimbLC[c[[i]]], {i, Length[c]}]]
+]\
+\>", "Input",
+ CellChangeTimes->{{3.6301992783647213`*^9, 3.630199287771372*^9}, {
+   3.630245273088978*^9, 3.6302455049147453`*^9}, {3.6302455395553637`*^9, 
+   3.6302455909028625`*^9}, 3.6302456738288116`*^9, {3.630245709416088*^9, 
+   3.6302457231965437`*^9}, {3.630245777826709*^9, 3.6302458338215065`*^9}, {
+   3.630246191869014*^9, 3.63024630857994*^9}, {3.630246344358366*^9, 
+   3.6302463763521056`*^9}, {3.630246509198547*^9, 3.6302465351229486`*^9}, {
+   3.6307715047970862`*^9, 3.6307715329030104`*^9}, {3.6307715659944954`*^9, 
+   3.6307715713752804`*^9}, {3.630771729345277*^9, 3.630771781157009*^9}, 
+   3.6307719373046923`*^9, {3.6307720120786695`*^9, 3.630772012081666*^9}, {
+   3.630772043711088*^9, 3.630772050057601*^9}, {3.630772193628375*^9, 
+   3.630772252812334*^9}, {3.6307724959776692`*^9, 3.6307724982272673`*^9}, {
+   3.6307725543780627`*^9, 3.630772607234559*^9}, {3.6307726663064313`*^9, 
+   3.6307726842847166`*^9}, {3.6307729058167443`*^9, 
+   3.6307729317151337`*^9}, {3.630773879147366*^9, 3.630773902714094*^9}, {
+   3.6307739809275055`*^9, 3.6307739832061195`*^9}, {3.6307740329223614`*^9, 
+   3.6307740364098387`*^9}, {3.6307748041477566`*^9, 3.630774846680908*^9}, {
+   3.630774905770814*^9, 3.6307749181735888`*^9}, {3.6307750444828353`*^9, 
+   3.630775051952741*^9}, {3.6307751447818885`*^9, 3.6307751553440404`*^9}, 
+   3.6307753215378284`*^9, {3.6307754218919697`*^9, 3.6307754266583567`*^9}, {
+   3.630775633939268*^9, 3.6307756431748147`*^9}, {3.630776215107799*^9, 
+   3.6307762156191883`*^9}, {3.6307764865051737`*^9, 
+   3.6307765150114074`*^9}, {3.630776564514482*^9, 3.6307765645164833`*^9}, {
+   3.6307766015207014`*^9, 3.630776630622326*^9}, 3.6307766716654215`*^9, 
+   3.63077672548557*^9, {3.630776786403759*^9, 3.6307767865838776`*^9}, {
+   3.6307768238313093`*^9, 3.6307768329057193`*^9}, {3.6307771387895393`*^9, 
+   3.6307771585995836`*^9}, {3.630777202186487*^9, 3.6307772076613507`*^9}, {
+   3.6307772774588256`*^9, 3.63077730587897*^9}, {3.6307792871769114`*^9, 
+   3.6307793039418244`*^9}, 3.6307793789439588`*^9, {3.63078191726252*^9, 
+   3.6307819702280626`*^9}, {3.630782628023896*^9, 3.6307826321148195`*^9}, {
+   3.630782886501576*^9, 3.630782888997346*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["\<\
+(*perfectData are created from the model for testing purposes*)
+perfectData = fcn[{rPluto,50,MN2},lsCoor];
+ListLinePlot[Transpose[{lsCoor,perfectData}]]
+
+perfectData2 = fcn[{rPluto,50,MN2*3},lsCoor];
+ListLinePlot[Transpose[{lsCoor,perfectData2}]]\
+\>", "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQA2IQLSMxxZ6P57Vjko6xE4iO8/DsUQHSv3R3TwDRRhrc
+90H05/ggML1P5OBTEG0+9QqYVpu9/TWIPrX4L5jmaC78CKJf/OoF039WXGJV
+BdJPrjwC0xXhQuog+kKjAZgWCmcyA9EHvwqB6aYVq4JANIPf/VAQzXL2WrM6
+72vHmzPetIDoC0d/fQTRf4xnfQbRXcebmTWAtIdXCguIrgh9JAyimcK/g+kd
+PwtqQbRQ68t6EH085UaZJpA22StUDqKrdm6O0ALS2iLGkSD61/KkIyB60p71
+YDrWdfoFEB18Jf4iiC5TsHoAouX2ODwF0Y+m330FomfV6LwB678w6wuIZmhn
++gaiAQTymoE=
+  "],
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["\<\
+
+Show[ListLinePlot[Transpose[{lsCoor,perfectData}]],ListLinePlot[Transpose[{\
+lsCoor,perfectData2}],PlotStyle->Red]]\
+\>", "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQA2IQLSMxxZ6P57Vjko6xE4iO8/DsUQHSv3R3TwDRRhrc
+90H05/ggML1P5OBTEG0+9QqYVpu9/TWIPrX4L5jmaC78CKJf/OoF039WXGJV
+BdJPrjwC0xXhQuog+kKjAZgWCmcyA9EHvwqB6aYVq4JANIPf/VAQzXL2WrM6
+72vHmzPetIDoC0d/fQTRf4xnfQbRXcebmTWAtIdXCguIrgh9JAyimcK/g+kd
+PwtqQbRQ68t6EH085UaZJpA22StUDqKrdm6O0ALS2iLGkSD61/KkIyB60p71
+YDrWdfoFEB18Jf4iiC5TsHoAouX2ODwF0Y+m330FomfV6LwB678w6wuIZmhn
++gaiAQTymoE=
+  "],
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["\<\
+(*real data are created from the perfectData plus some noise*)
+lsData = (# + Random[Real, {-0.01, 0.01}])& /@ 
+\t\t\tperfectData;
+ListLinePlot[Transpose[{lsCoor,lsData}]]\
+\>", "Input",
+ CellChangeTimes->{{3.630199315631092*^9, 3.630199331009034*^9}, {
+  3.630246680157024*^9, 3.6302466818452244`*^9}, {3.6307782390074024`*^9, 
+  3.630778271718588*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Set up for fitting", "Section",
+ CellChangeTimes->{{3.630199367037898*^9, 3.630199370334516*^9}}],
+
+Cell[BoxData[
+ RowBox[{"lsUseModel", "[", "fcn", "]"}]], "Input",
+ CellChangeTimes->{{3.6301993720688763`*^9, 3.630199377708025*^9}, {
+  3.630199959666997*^9, 3.6301999626938677`*^9}}],
+
+Cell["\<\
+(*List of parameter names for display*)
+lsNames = {\"rSurf\",\"tSurf\",\"MGas\"};\
+\>", "Input",
+ CellChangeTimes->{{3.6301993929557323`*^9, 3.630199410171816*^9}, {
+  3.6302466008886857`*^9, 3.6302466125770206`*^9}, {3.6307771648950367`*^9, 
+  3.6307771709343815`*^9}, {3.630779333445711*^9, 3.6307793357843723`*^9}, {
+  3.6307819981598644`*^9, 3.6307820003504157`*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["\<\
+(*Give initial values for all parameters*)
+initialValues = {rPluto+2500, 50+20, MN2*3};\
+\>", "Input",
+ CellChangeTimes->{{3.630199445182722*^9, 3.630199452951898*^9}, {
+  3.630246625793392*^9, 3.630246640202628*^9}, {3.6307771770386443`*^9, 
+  3.630777184620048*^9}, {3.6307793387654996`*^9, 3.6307793422549825`*^9}, {
+  3.6307820032084503`*^9, 3.6307820196951466`*^9}, {3.6307824482644835`*^9, 
+  3.6307824505851817`*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["lsParamHist = {lsParams = initialValues};", "Input",
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["\<\
+(*LS fitting will suggest a change for each fitted parameter value; sometimes \
+it is wise to not jump the entire amount suggested, but instead to change by \
+a fraction of that.*)
+lsChangeFrac = 1.0;\
+\>", "Input",
+ CellChangeTimes->{{3.630199456928464*^9, 3.630199521761437*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Fit", "Section",
+ CellChangeTimes->{{3.6302000326954603`*^9, 3.63020003299841*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "specify", " ", "the", " ", "step", " ", "sizes", " ", "to", " ", "be", 
+    " ", "used"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"lsStep", "=", 
+    RowBox[{"{", 
+     RowBox[{"500", ",", "5", ",", "0.01"}], "}"}]}], ";"}]}]], "Input",
+ CellChangeTimes->{{3.6307824899140205`*^9, 3.6307824991195526`*^9}}],
+
+Cell["\<\
+(*From the list of parameters, choose the index number(s) of those that will \
+be fitted*)
+(*It's usually necessary to begin fitting a limited number of parameters, \
+then expand to the full desired set.*)
+lsFitList = {1}; lsNames[[lsFitList]]\
+\>", "Input",
+ CellChangeTimes->{{3.630199420430325*^9, 3.630199437999387*^9}, {
+  3.6302000562991543`*^9, 3.630200079204527*^9}, {3.6307820257414117`*^9, 
+  3.6307820369603653`*^9}, {3.630782543243806*^9, 3.6307825441364627`*^9}, {
+  3.630782580341116*^9, 3.630782580462181*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["\<\
+(*This is one possible iteration sequence*)
+Do[lsUseLastParams; lsIterate, {10}]\
+\>", "Input",
+ CellChangeTimes->{{3.630199529274081*^9, 3.630199551668886*^9}, {
+  3.630199782627043*^9, 3.630199783821286*^9}, {3.630199824402582*^9, 
+  3.630199828554669*^9}},
+ AspectRatioFixed->False,
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Display", " ", "fit", " ", "results"}], "*)"}], 
+  "\[IndentingNewLine]", "lsDisplay"}]], "Input",
+ CellChangeTimes->{{3.6301997884217978`*^9, 3.6301998030487137`*^9}}],
+
+Cell["lsFitList={1,2}; lsNames[[lsFitList]]", "Input",
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["\<\
+(*Another way to iterate*)
+lsIterateToConvergence[10, 10^-6, lsFitList]\
+\>", "Input",
+ CellChangeTimes->{{3.6301998157225523`*^9, 3.630199821602004*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["lsDisplay", "Input",
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["lsFitList={1,2,3}; lsNames[[lsFitList]]", "Input",
+ CellChangeTimes->{3.630246147082156*^9},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["lsIterateToConvergence[10, 10^-6, lsFitList]", "Input",
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["lsDisplay", "Input",
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["\<\
+(*Best fit parameters*)
+lsParamHist[[-1]]\
+\>", "Input",
+ CellChangeTimes->{{3.630199854126684*^9, 3.630199859759028*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["lsError", "Input",
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["\<\
+finalParams = lsParamHist[[-1]];
+finalErrors = lsError;\
+\>", "Input",
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["ListPlot[lsResid]", "Input",
+ CellChangeTimes->{3.630199870512649*^9},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["ListPlot[lsChiSquareHist]", "Input",
+ CellChangeTimes->{{3.630199874657015*^9, 3.630199893493269*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["ListPlot[Transpose[lsParamHist][[1]]]", "Input",
+ CellChangeTimes->{3.630199900918466*^9},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["ListPlot[fcn[finalParams, lsCoor]]", "Input",
+ CellChangeTimes->{3.630199905701494*^9},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["p1=ListLinePlot[lsModel]", "Input",
+ CellChangeTimes->{
+  3.630199908974051*^9, {3.630244416558504*^9, 3.6302444607889338`*^9}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["p2=ListPlot[lsData]", "Input",
+ CellChangeTimes->{3.630199912030486*^9},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["Show[p1,p2]", "Input",
+ CellChangeTimes->{3.630199915150816*^9},
+ ImageRegion->{{0, 1}, {0, 1}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowToolbars->{},
+WindowSize->{1600, 817},
+WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+PrivateNotebookOptions->{"VersionedStylesheet"->{"Default.nb"[8.] -> False}},
+ShowCellLabel->True,
+ShowCellTags->False,
+FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (December 4, 2014)",
+StyleDefinitions->"Default.nb",
+PrivateNotebookOptions -> {"ColorPalette" -> {RGBColor, -1}},
+RenderingOptions -> {"ObjectDithering" -> True},
+RenderingOptions -> {"RasterDithering" -> False}
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 150, 2, 101, "Title"],
+Cell[733, 26, 145, 5, 91, "Subtitle"],
+Cell[CellGroupData[{
+Cell[903, 35, 148, 2, 70, "Section"],
+Cell[1054, 39, 154, 3, 45, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1245, 47, 213, 3, 70, "Section"],
+Cell[1461, 52, 558, 10, 62, "Input"],
+Cell[2022, 64, 3550, 76, 694, "Input"],
+Cell[5575, 142, 725, 17, 116, "Input"],
+Cell[6303, 161, 595, 14, 62, "Input"],
+Cell[6901, 177, 395, 9, 96, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7333, 191, 103, 1, 70, "Section"],
+Cell[7439, 194, 184, 3, 45, "Input"],
+Cell[7626, 199, 413, 8, 62, "Input"],
+Cell[8042, 209, 466, 9, 62, "Input"],
+Cell[8511, 220, 90, 1, 45, "Input"],
+Cell[8604, 223, 323, 7, 62, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8964, 235, 89, 1, 70, "Section"],
+Cell[9056, 238, 388, 10, 66, "Input"],
+Cell[9447, 250, 567, 11, 79, "Input"],
+Cell[10017, 263, 327, 8, 62, "Input"],
+Cell[10347, 273, 221, 5, 66, "Input"],
+Cell[10571, 280, 86, 1, 45, "Input"],
+Cell[10660, 283, 196, 5, 62, "Input"],
+Cell[10859, 290, 58, 1, 45, "Input"],
+Cell[10920, 293, 130, 2, 31, "Input"],
+Cell[11053, 297, 93, 1, 31, "Input"],
+Cell[11149, 300, 58, 1, 31, "Input"],
+Cell[11210, 303, 164, 5, 48, "Input"],
+Cell[11377, 310, 56, 1, 31, "Input"],
+Cell[11436, 313, 112, 4, 48, "Input"],
+Cell[11551, 319, 108, 2, 45, "Input"],
+Cell[11662, 323, 140, 2, 45, "Input"],
+Cell[11805, 327, 128, 2, 45, "Input"],
+Cell[11936, 331, 125, 2, 45, "Input"],
+Cell[12064, 335, 166, 3, 31, "Input"],
+Cell[12233, 340, 110, 2, 31, "Input"],
+Cell[12346, 344, 102, 2, 31, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
