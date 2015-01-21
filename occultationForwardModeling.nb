@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    308714,       6331]
-NotebookOptionsPosition[    304972,       6197]
-NotebookOutlinePosition[    305318,       6212]
-CellTagsIndexPosition[    305275,       6209]
+NotebookDataLength[    311689,       6389]
+NotebookOptionsPosition[    307947,       6255]
+NotebookOutlinePosition[    308293,       6270]
+CellTagsIndexPosition[    308250,       6267]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -80,14 +80,14 @@ Cell[BoxData[
       RowBox[{"r_", ",", " ", "MPlanet_"}], "]"}], " ", ":=", " ", 
      RowBox[{"G", "*", 
       RowBox[{"MPlanet", "/", 
-       RowBox[{"r", "^", "2"}]}]}]}], ";"}], "\[IndentingNewLine]", "\n", 
+       RowBox[{"r", "^", "2"}]}]}]}], ";"}], "\n", "\n", 
    RowBox[{"(*", " ", 
     RowBox[{
      RowBox[{"barometric", " ", "formula"}], " ", "-", " ", 
      RowBox[{
      "pressure", " ", "as", " ", "a", " ", "function", " ", "of", " ", 
       "height", " ", "for", " ", "isothermal", " ", "atmospheres", " ", 
-      "only"}]}], " ", "*)"}], "\n", 
+      "only"}]}], " ", "*)"}], "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"barometric", "[", 
@@ -106,8 +106,8 @@ Cell[BoxData[
              RowBox[{"h", " ", "+", " ", "r0"}], ",", " ", "MPlanet"}], "]"}],
             " ", "h"}], ")"}], "/", 
          RowBox[{"(", 
-          RowBox[{"R", " ", "T"}], ")"}]}], ")"}]}]}]}], ";"}], 
-   "\[IndentingNewLine]", "\n", 
+          RowBox[{"R", " ", "T"}], ")"}]}], ")"}]}]}]}], ";"}], "\n", 
+   "\[IndentingNewLine]", 
    RowBox[{"(*", " ", 
     RowBox[{
      RowBox[{"get", " ", "the", " ", "slope", " ", "and", " ", "y"}], "-", 
@@ -315,7 +315,11 @@ Cell[BoxData[{
        RowBox[{"M", "=", 
         RowBox[{"setAtmProperty", "[", 
          RowBox[{"M0", ",", "M1", ",", 
-          RowBox[{"Round", "[", "sectionShells", "]"}]}], "]"}]}], ";", 
+          RowBox[{"Round", "[", "sectionShells", "]"}]}], "]"}]}], ";", " ", 
+       RowBox[{"(*", " ", 
+        RowBox[{
+         RowBox[{"meam", " ", "molecular", " ", "mass"}], ",", " ", 
+         RowBox[{"not", " ", "planet", " ", "mass"}]}], " ", "*)"}], 
        "\[IndentingNewLine]", 
        RowBox[{"temps", "=", 
         RowBox[{"setAtmProperty", "[", 
@@ -325,12 +329,16 @@ Cell[BoxData[{
        RowBox[{"\[Alpha]z", "=", 
         RowBox[{"setAtmProperty", "[", 
          RowBox[{"\[Alpha]z0", ",", "\[Alpha]z1", ",", 
-          RowBox[{"Round", "[", "sectionShells", "]"}]}], "]"}]}], ";", 
+          RowBox[{"Round", "[", "sectionShells", "]"}]}], "]"}]}], ";", " ", 
+       RowBox[{"(*", " ", 
+        RowBox[{"attenuation", " ", "coefficient"}], " ", "*)"}], 
        "\[IndentingNewLine]", 
        RowBox[{"\[Alpha]", "=", 
         RowBox[{"setAtmProperty", "[", 
          RowBox[{"\[Alpha]0", ",", "\[Alpha]1", ",", 
-          RowBox[{"Round", "[", "sectionShells", "]"}]}], "]"}]}], ";", 
+          RowBox[{"Round", "[", "sectionShells", "]"}]}], "]"}]}], ";", " ", 
+       RowBox[{"(*", " ", 
+        RowBox[{"mean", " ", "polarizability"}], " ", "*)"}], 
        "\[IndentingNewLine]", 
        RowBox[{"pressures", "=", 
         RowBox[{"{", "P0", "}"}]}], ";", 
@@ -440,7 +448,7 @@ Cell[BoxData[{
          "radii", ",", "temps", ",", "M", ",", "pressures", ",", "\[Rho]n", 
           ",", "\[Alpha]z", ",", "\[Alpha]", ",", "\[ScriptCapitalN]"}], 
          "}"}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"joinAtmosphereSections", "[", "sections_", "]"}], ":=", 
@@ -480,6 +488,20 @@ Cell[BoxData[{
            RowBox[{"i", "\[NotEqual]", " ", "1"}], ",", "\[IndentingNewLine]", 
            RowBox[{
             RowBox[{"Do", "[", "\[IndentingNewLine]", 
+             RowBox[{"(*", " ", 
+              RowBox[{
+               RowBox[{
+               "if", " ", "the", " ", "current", " ", "section", " ", "that", 
+                " ", 
+                RowBox[{"we", "'"}], "re", " ", "looking", " ", "at", " ", 
+                RowBox[{"isn", "'"}], "t", " ", "the", " ", "bottome", " ", 
+                "section"}], ",", " ", 
+               RowBox[{"drop", " ", "the", " ", "bottommost", " ", "shell"}], 
+               ",", " ", 
+               RowBox[{"because", " ", 
+                RowBox[{"it", "'"}], "s", " ", "a", " ", "duplicate", " ", 
+                "of", " ", "the", " ", "one", " ", "below", " ", "it"}]}], 
+              " ", "*)"}], "\[IndentingNewLine]", 
              RowBox[{
               RowBox[{
                RowBox[{
@@ -489,21 +511,7 @@ Cell[BoxData[{
                  RowBox[{
                   RowBox[{"currentSection", "[", 
                    RowBox[{"[", "i", "]"}], "]"}], ",", "1"}], "]"}]}], ";"}],
-               ",", " ", 
-              RowBox[{"(*", " ", 
-               RowBox[{
-                RowBox[{
-                "if", " ", "the", " ", "current", " ", "section", " ", "that",
-                  " ", 
-                 RowBox[{"we", "'"}], "re", " ", "looking", " ", "at", " ", 
-                 RowBox[{"isn", "'"}], "t", " ", "the", " ", "bottome", " ", 
-                 "section"}], ",", " ", 
-                RowBox[{"drop", " ", "the", " ", "bottommost", " ", "shell"}],
-                 ",", " ", 
-                RowBox[{"because", " ", 
-                 RowBox[{"it", "'"}], "s", " ", "a", " ", "duplicate", " ", 
-                 "of", " ", "the", " ", "one", " ", "below", " ", "it"}]}], 
-               " ", "*)"}], "\[IndentingNewLine]", 
+               ",", "\[IndentingNewLine]", 
               RowBox[{"{", 
                RowBox[{"i", ",", "1", ",", 
                 RowBox[{"Length", "[", "currentSection", "]"}]}], "}"}]}], 
@@ -585,8 +593,9 @@ Cell[BoxData[{
    3.6304338338133755`*^9}, {3.6304339590771914`*^9, 
    3.6304339634002266`*^9}, {3.630434758105528*^9, 3.630434762662754*^9}, {
    3.6304348542286777`*^9, 3.630434859690529*^9}, {3.6304368295856724`*^9, 
-   3.630436834788342*^9}}]
-}, Open  ]],
+   3.630436834788342*^9}, {3.630812780871066*^9, 3.630812831615035*^9}, {
+   3.63081292974259*^9, 3.6308129313837824`*^9}}]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -773,12 +782,12 @@ Cell[BoxData[{
            RowBox[{"params", "[", 
             RowBox[{"[", "8", "]"}], "]"}], ",", "exportFolderPath", ",", 
            "atmosphereNumber"}], "]"}], ";"}], "]"}], ";"}]}], "]"}]}], ";"}],
-   "\n", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
   RowBox[{"(*", " ", 
    RowBox[{
    "make", " ", "a", " ", "set", " ", "of", " ", "atmospheres", " ", "based", 
     " ", "on", " ", "one", " ", "variable", " ", "property"}], " ", 
-   "*)"}]}], "\[IndentingNewLine]", 
+   "*)"}]}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"makeAtmosphereSet", "[", 
@@ -791,11 +800,12 @@ Cell[BoxData[{
       RowBox[{
       "atmNum", ",", "varRange", ",", "currentAtm", ",", "arrayPosition", ",",
         "propertyNum", ",", "prop", ",", "error"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
      RowBox[{
       RowBox[{"error", "=", "False"}], ";", "\[IndentingNewLine]", 
       RowBox[{"(*", 
        RowBox[{"check", " ", "for", " ", "specification", " ", "problems"}], 
-       "*)"}], 
+       "*)"}], "\[IndentingNewLine]", 
       RowBox[{"If", "[", 
        RowBox[{
         RowBox[{
@@ -806,33 +816,36 @@ Cell[BoxData[{
           RowBox[{"StringQ", "[", 
            RowBox[{"variableProperty", "[", 
             RowBox[{"[", "1", "]"}], "]"}], "]"}]}]}], ",", 
+        "\[IndentingNewLine]", 
         RowBox[{
          RowBox[{
          "Print", "[", 
           "\"\<variableProperty specification length or property error\>\"", 
           "]"}], ";", "\[IndentingNewLine]", 
-         RowBox[{"error", "=", "True"}], ";"}]}], "]"}], ";", 
-      "\[IndentingNewLine]", 
+         RowBox[{"error", "=", "True"}], ";"}]}], "\[IndentingNewLine]", 
+       "]"}], ";", "\[IndentingNewLine]", 
       RowBox[{"If", "[", 
        RowBox[{"error", ",", 
         RowBox[{"Return", "[", "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
-      RowBox[{"Do", "[", 
+      RowBox[{"Do", "[", "\[IndentingNewLine]", 
        RowBox[{"(*", 
         RowBox[{
         "make", " ", "sure", " ", "all", " ", "specs", " ", "are", " ", 
-         "positive"}], "*)"}], 
+         "positive"}], "*)"}], "\[IndentingNewLine]", 
        RowBox[{
         RowBox[{"If", "[", 
          RowBox[{
           RowBox[{
            RowBox[{"variableProperty", "[", 
             RowBox[{"[", "i", "]"}], "]"}], "\[LessEqual]", "0"}], ",", 
+          "\[IndentingNewLine]", 
           RowBox[{
            RowBox[{
            "Print", "[", 
             "\"\<zero or negative value in variableProperty \
 specification\>\"", "]"}], ";", "\[IndentingNewLine]", 
-           RowBox[{"error", "=", "True"}], ";"}]}], "]"}], ",", 
+           RowBox[{"error", "=", "True"}], ";"}]}], "\[IndentingNewLine]", 
+         "]"}], ",", "\[IndentingNewLine]", 
         RowBox[{"{", 
          RowBox[{"i", ",", "1", ",", 
           RowBox[{"Length", "[", "variableProperty", "]"}]}], "}"}]}], "]"}], 
@@ -934,14 +947,19 @@ specification\>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"[", 
                     RowBox[{"propertyNum", ",", 
                     RowBox[{"i", "+", "1"}]}], "]"}], "]"}]}]}], ",", 
+                 "\[IndentingNewLine]", 
                  RowBox[{
                   RowBox[{
                   "Print", "[", "\"\<radius range specification error\>\"", 
                    "]"}], ";", "\[IndentingNewLine]", 
-                  RowBox[{"error", "=", "True"}], ";"}]}], "]"}], ";"}], ",", 
+                  RowBox[{"error", "=", "True"}], ";"}]}], 
+                "\[IndentingNewLine]", "]"}], ";"}], ",", 
+              "\[IndentingNewLine]", 
               RowBox[{"arrayPosition", "\[Equal]", "1"}], ",", 
+              "\[IndentingNewLine]", 
               RowBox[{"(*", 
                RowBox[{"bottommost", " ", "boundary"}], "*)"}], 
+              "\[IndentingNewLine]", 
               RowBox[{
                RowBox[{"If", "[", 
                 RowBox[{
@@ -952,15 +970,18 @@ specification\>\"", "]"}], ";", "\[IndentingNewLine]",
                    RowBox[{"[", 
                     RowBox[{"propertyNum", ",", 
                     RowBox[{"i", "+", "1"}]}], "]"}], "]"}]}], ",", 
+                 "\[IndentingNewLine]", 
                  RowBox[{
                   RowBox[{
                   "Print", "[", "\"\<radius range specification error\>\"", 
                    "]"}], ";", "\[IndentingNewLine]", 
                   RowBox[{"error", "=", "True"}], ";"}]}], "]"}], ";"}], ",", 
+              "\[IndentingNewLine]", 
               RowBox[{"arrayPosition", "\[Equal]", 
                RowBox[{"Length", "[", 
                 RowBox[{"baseAtm", "[", 
                  RowBox[{"[", "propertyNum", "]"}], "]"}], "]"}]}], ",", 
+              "\[IndentingNewLine]", 
               RowBox[{"(*", 
                RowBox[{"topmost", " ", "boundary"}], "*)"}], 
               "\[IndentingNewLine]", 
@@ -1029,8 +1050,8 @@ specification\>\"", "]"}], ";", "\[IndentingNewLine]",
   3.6302677887823925`*^9, 3.630267797362467*^9}, {3.6302692204118657`*^9, 
   3.6302692747304735`*^9}, {3.6303440713845806`*^9, 3.6303440786487246`*^9}, {
   3.6303441443293705`*^9, 3.630344161397503*^9}, {3.630344481826338*^9, 
-  3.630344558593053*^9}, {3.6307780810544415`*^9, 3.6307780983497133`*^9}},
- EmphasizeSyntaxErrors->True]
+  3.630344558593053*^9}, {3.6307780810544415`*^9, 3.6307780983497133`*^9}, {
+  3.630812976250574*^9, 3.630813064870391*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1287,7 +1308,7 @@ Cell[BoxData[
    3.6302683699744368`*^9, 3.630268447799774*^9}, {3.6302687213932056`*^9, 
    3.630268734737713*^9}, 3.630269353066181*^9, {3.6303434986183214`*^9, 
    3.630343518073114*^9}, {3.6303437736293287`*^9, 3.630343773794453*^9}}]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1393,21 +1414,27 @@ Cell[BoxData[
        "material"}]}]}]}], "*)"}], "\[IndentingNewLine]", 
   RowBox[{
    RowBox[{
-    RowBox[{
-     RowBox[{"shell", "[", 
-      RowBox[{"r_", ",", "n_", ",", "\[Alpha]z_"}], "]"}], ":=", 
-     RowBox[{"{", 
+    RowBox[{"shell", "[", 
+     RowBox[{"r_", ",", "n_", ",", "\[Alpha]z_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], ",", 
       RowBox[{
-       RowBox[{"Circle", "[", 
-        RowBox[{
-         RowBox[{"{", 
-          RowBox[{"0", ",", "0"}], "}"}], ",", "r"}], "]"}], ",", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"x", "^", "2"}], "+", 
-         RowBox[{"y", "^", "2"}]}], "\[Equal]", 
-        RowBox[{"r", "^", "2"}]}], ",", "r", ",", "n", ",", "\[Alpha]z"}], 
-      "}"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+       RowBox[{"Return", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Circle", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}], ",", "r"}], "]"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"x", "^", "2"}], "+", 
+            RowBox[{"y", "^", "2"}]}], "\[Equal]", 
+           RowBox[{"r", "^", "2"}]}], ",", "r", ",", "n", ",", "\[Alpha]z"}], 
+         "}"}], "]"}], ";"}]}], "]"}]}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
    RowBox[{"(*", 
     RowBox[{
      RowBox[{
@@ -1416,7 +1443,7 @@ Cell[BoxData[
        "a", " ", "shell", " ", "based", " ", "on", " ", "location"}], ",", 
       RowBox[{
       "assuming", " ", "shells", " ", "centered", " ", "at", " ", "0"}], ",", 
-      "0"}], ")"}], "*)"}], "\[IndentingNewLine]", 
+      "0"}], ")"}], "*)"}], "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"normalAngle", "[", "point_", "]"}], ":=", 
@@ -1425,14 +1452,14 @@ Cell[BoxData[
        RowBox[{"point", "[", 
         RowBox[{"[", "1", "]"}], "]"}], ",", 
        RowBox[{"point", "[", 
-        RowBox[{"[", "2", "]"}], "]"}]}], "]"}]}], ";"}], "\n", 
-   "\[IndentingNewLine]", 
+        RowBox[{"[", "2", "]"}], "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{"(*", 
     RowBox[{
     "helper", " ", "function", " ", "to", " ", "negate", " ", "the", " ", "y",
       " ", "term", " ", "of", " ", "an", " ", "xy", " ", "pair", " ", "for", 
      " ", "flipping", " ", "atmospheric", " ", "intersection", " ", 
-     "points"}], "*)"}], "\[IndentingNewLine]", 
+     "points"}], "*)"}], "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"flipY", "[", 
@@ -1529,8 +1556,8 @@ Cell[BoxData[
       RowBox[{"(*", 
        RowBox[{
        "return", " ", "only", " ", "real", " ", "positive", " ", "time", " ", 
-        "values"}], "*)"}], "\[IndentingNewLine]", "]"}]}], ";"}], 
-   "\[IndentingNewLine]", "\n", 
+        "values"}], "*)"}], "\[IndentingNewLine]", "]"}]}], ";"}], "\n", 
+   "\[IndentingNewLine]", 
    RowBox[{"(*", " ", 
     RowBox[{
     "function", " ", "that", " ", "identifies", " ", "where", " ", "the", " ",
@@ -1694,7 +1721,7 @@ Cell[BoxData[
        RowBox[{"Return", "[", 
         RowBox[{"{", 
          RowBox[{"x1", ",", "x2", ",", "x3", ",", "x4"}], "}"}], "]"}], 
-       ";"}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "\n", 
+       ";"}]}], "\[IndentingNewLine]", "]"}]}], "\n", "\[IndentingNewLine]", 
    RowBox[{"(*", " ", 
     RowBox[{
     "import", " ", "a", " ", "constructed", " ", "atmosphere", " ", "and", 
@@ -1712,8 +1739,8 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{
         "i", ",", " ", "r", ",", " ", "\[ScriptCapitalN]", ",", " ", 
-         "\[Alpha]z", ",", "paramAtmosphere", ",", "n", ",", "msg"}], "}"}], 
-       ",", "\[IndentingNewLine]", 
+         "\[Alpha]z", ",", "paramAtmosphere", ",", "n", ",", "msg", ",", 
+         "layersPrint", ",", "layers"}], "}"}], ",", "\[IndentingNewLine]", 
        RowBox[{
         RowBox[{"layers", " ", "=", " ", 
          RowBox[{"Length", "[", "params", "]"}]}], ";", "\n", "   ", 
@@ -1725,7 +1752,12 @@ Cell[BoxData[
           "\"\<Generating atmosphere model with impact parameter of \>\"", 
            " ", "<>", " ", 
            RowBox[{"ToString", "[", "impactParameter", "]"}]}], "]"}]}], ";", 
-        "\n", "   ", 
+        "\[IndentingNewLine]", 
+        RowBox[{"layersPrint", " ", "=", " ", 
+         RowBox[{"PrintTemporary", "[", 
+          RowBox[{"\"\<layers \>\"", " ", "<>", " ", 
+           RowBox[{"ToString", "[", "layers", "]"}]}], "]"}]}], ";", "\n", 
+        "   ", 
         RowBox[{"Do", "[", "\[IndentingNewLine]", 
          RowBox[{
           RowBox[{
@@ -1800,7 +1832,9 @@ Cell[BoxData[
           RowBox[{"(", 
            RowBox[{"atmMax", "-", "atmMin"}], ")"}], "/", "layers"}]}], ";", 
         "\[IndentingNewLine]", 
-        RowBox[{"NotebookDelete", "[", "msg", "]"}], ";", "\n", "   ", 
+        RowBox[{"NotebookDelete", "[", "msg", "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"NotebookDelete", "[", "layersPrint", "]"}], ";", "\n", "   ", 
         RowBox[{"Return", "[", "paramAtmosphere", "]"}], ";"}]}], 
       "\[IndentingNewLine]", "]"}]}], ";"}]}]}]], "Input",
  InitializationCell->True,
@@ -1822,7 +1856,9 @@ Cell[BoxData[
    3.6306928659874763`*^9}, {3.6306929161130066`*^9, 
    3.6306929371949797`*^9}, {3.630693656008689*^9, 3.630693716373491*^9}, {
    3.630693772049932*^9, 3.630693773236767*^9}, {3.630778118100728*^9, 
-   3.630778146520873*^9}}]
+   3.630778146520873*^9}, {3.63081310058772*^9, 3.6308131291969695`*^9}, {
+   3.6308132758729377`*^9, 3.6308132765684314`*^9}, {3.630813312328574*^9, 
+   3.6308133300141125`*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2587,8 +2623,9 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
        RowBox[{"{", 
         RowBox[{
         "extinctionY", ",", "beamsGenerated", ",", "beamsHittingAtm", ",", 
-         "layersPrint", ",", "yStart", ",", "yMultTemp", ",", "origin", ",", 
-         "intersectionWithoutLast"}], "}"}], ",", "\[IndentingNewLine]", 
+         "stepLightY", ",", "yStart", ",", "yMultTemp", ",", "origin", ",", 
+         "angle", ",", "intersectionWithoutLast"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
        RowBox[{
         RowBox[{"startingPosition", " ", "=", " ", 
          RowBox[{"{", "}"}]}], ";", " ", 
@@ -2665,171 +2702,165 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
          RowBox[{
           RowBox[{"-", "atmStep"}], "/", "atmMax"}]}], ";", 
         "\[IndentingNewLine]", "\[IndentingNewLine]", 
-        RowBox[{"layersPrint", " ", "=", " ", 
-         RowBox[{"PrintTemporary", "[", 
-          RowBox[{"\"\<layers \>\"", " ", "<>", " ", 
-           RowBox[{"ToString", "[", "layers", "]"}]}], "]"}]}], ";", 
-        "\[IndentingNewLine]", "\[IndentingNewLine]", 
-        RowBox[{
-         RowBox[{"Do", "[", "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
           RowBox[{
-           RowBox[{
-            RowBox[{"yStart", " ", "=", " ", 
-             RowBox[{"atmMax", "*", "yMultFact"}]}], ";", 
-            RowBox[{"(*", " ", 
+           RowBox[{"yStart", " ", "=", " ", 
+            RowBox[{"atmMax", "*", "yMultFact"}]}], ";", 
+           RowBox[{"(*", " ", 
+            RowBox[{
+            "parameterized", " ", "to", " ", "actual", " ", "starting", " ", 
+             "location"}], " ", "*)"}], "\[IndentingNewLine]", 
+           RowBox[{"beamsGenerated", " ", "=", " ", 
+            RowBox[{"beamsGenerated", " ", "+", " ", "1"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"If", "[", 
+            RowBox[{
              RowBox[{
-             "parameterized", " ", "to", " ", "actual", " ", "starting", " ", 
-              "location"}], " ", "*)"}], "\[IndentingNewLine]", 
-            RowBox[{"beamsGenerated", " ", "=", " ", 
-             RowBox[{"beamsGenerated", " ", "+", " ", "1"}]}], ";", 
-            "\[IndentingNewLine]", 
-            RowBox[{"If", "[", 
+              RowBox[{"Abs", "[", "yStart", "]"}], ">", 
+              RowBox[{"Abs", "[", "extinctionY", "]"}]}], ",", 
+             "\[IndentingNewLine]", 
              RowBox[{
-              RowBox[{
-               RowBox[{"Abs", "[", "yStart", "]"}], ">", 
-               RowBox[{"Abs", "[", "extinctionY", "]"}]}], ",", 
+              RowBox[{"yMultTemp", " ", "=", " ", 
+               RowBox[{"PrintTemporary", "[", 
+                RowBox[{"\"\<y multiplicative factor \>\"", " ", "<>", " ", 
+                 RowBox[{"ToString", "[", "yMultFact", "]"}]}], "]"}]}], ";", 
+              " ", 
+              RowBox[{"(*", " ", 
+               RowBox[{"for", " ", "tracking", " ", "progress"}], " ", "*)"}],
+               "\[IndentingNewLine]", 
+              RowBox[{"origin", " ", "=", " ", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"-", "atmMax"}], "*", "1.25"}], ",", "yStart"}], 
+                "}"}]}], ";", " ", 
+              RowBox[{"(*", " ", 
+               RowBox[{
+               "origin", " ", "needs", " ", "to", " ", "be", " ", "specified",
+                 " ", "by", " ", "doubles", " ", "rather", " ", "than", " ", 
+                "ints"}], " ", "*)"}], "\[IndentingNewLine]", 
+              RowBox[{"angle", " ", "=", " ", "0"}], ";", " ", 
+              RowBox[{"(*", " ", 
+               RowBox[{"starting", " ", "angle"}], " ", "*)"}], 
               "\[IndentingNewLine]", 
-              RowBox[{
-               RowBox[{"yMultTemp", " ", "=", " ", 
-                RowBox[{"PrintTemporary", "[", 
-                 RowBox[{"\"\<y multiplicative factor \>\"", " ", "<>", " ", 
-                  RowBox[{"ToString", "[", "yMultFact", "]"}]}], "]"}]}], ";",
+              RowBox[{"currentN", " ", "=", " ", "1.0"}], ";", " ", 
+              RowBox[{"(*", " ", 
+               RowBox[{
+               "refractivity", " ", "of", " ", "the", " ", "light", " ", 
+                RowBox[{"ray", "'"}], "s", " ", "initial", " ", "environment",
+                 " ", 
+                RowBox[{"(", "vacuum", ")"}]}], " ", "*)"}], 
+              "\[IndentingNewLine]", 
+              RowBox[{"currentRayFlux", " ", "=", " ", "1.0"}], ";", " ", 
+              RowBox[{"(*", " ", 
+               RowBox[{
+                RowBox[{
+                "store", " ", "the", " ", "current", " ", "flux", " ", "of", 
+                 " ", "the", " ", "ray", " ", "that", " ", 
+                 RowBox[{"we", "'"}], "re", " ", "looking", " ", "at"}], ",", 
                 " ", 
-               RowBox[{"(*", " ", 
-                RowBox[{"for", " ", "tracking", " ", "progress"}], " ", 
-                "*)"}], "\[IndentingNewLine]", 
-               RowBox[{"origin", " ", "=", " ", 
-                RowBox[{"{", 
-                 RowBox[{
-                  RowBox[{
-                   RowBox[{"-", "atmMax"}], "*", "1.25"}], ",", "yStart"}], 
-                 "}"}]}], ";", " ", 
-               RowBox[{"(*", " ", 
                 RowBox[{
-                "origin", " ", "needs", " ", "to", " ", "be", " ", 
-                 "specified", " ", "by", " ", "doubles", " ", "rather", " ", 
-                 "than", " ", "ints"}], " ", "*)"}], "\[IndentingNewLine]", 
-               RowBox[{"angle", " ", "=", " ", "0"}], ";", " ", 
-               RowBox[{"(*", " ", 
-                RowBox[{"starting", " ", "angle"}], " ", "*)"}], 
-               "\[IndentingNewLine]", 
-               RowBox[{"currentN", " ", "=", " ", "1.0"}], ";", " ", 
-               RowBox[{"(*", " ", 
-                RowBox[{
-                "refractivity", " ", "of", " ", "the", " ", "light", " ", 
-                 RowBox[{"ray", "'"}], "s", " ", "initial", " ", 
-                 "environment", " ", 
-                 RowBox[{"(", "vacuum", ")"}]}], " ", "*)"}], 
-               "\[IndentingNewLine]", 
-               RowBox[{"currentRayFlux", " ", "=", " ", "1.0"}], ";", " ", 
-               RowBox[{"(*", " ", 
-                RowBox[{
-                 RowBox[{
-                 "store", " ", "the", " ", "current", " ", "flux", " ", "of", 
-                  " ", "the", " ", "ray", " ", "that", " ", 
-                  RowBox[{"we", "'"}], "re", " ", "looking", " ", "at"}], ",",
-                  " ", 
-                 RowBox[{
-                 "to", " ", "be", " ", "changed", " ", "upon", " ", 
-                  "extinction"}]}], " ", "*)"}], "\[IndentingNewLine]", 
-               "\[IndentingNewLine]", 
-               RowBox[{"(*", " ", 
-                RowBox[{"initialize", " ", "lists", " ", "of", " ", "data"}], 
-                " ", "*)"}], "\[IndentingNewLine]", 
-               RowBox[{"intersectionPoints", " ", "=", " ", 
-                RowBox[{"{", "origin", "}"}]}], ";", "\[IndentingNewLine]", 
-               RowBox[{"angleList", " ", "=", " ", 
-                RowBox[{"{", "angle", "}"}]}], ";", "\[IndentingNewLine]", 
-               "\[IndentingNewLine]", 
-               RowBox[{"moveLightRay", "[", 
-                RowBox[{"intersectionPoints", ",", 
-                 RowBox[{"Last", "[", "angleList", "]"}], ",", "atmosphere"}],
-                 "]"}], ";", " ", 
-               RowBox[{"(*", " ", 
-                RowBox[{
-                "move", " ", "the", " ", "light", " ", "ray", " ", "up", " ", 
-                 "to", " ", "the", " ", "first", " ", "atmosphere", " ", 
-                 "encounter"}], " ", "*)"}], "\[IndentingNewLine]", 
-               "\[IndentingNewLine]", 
-               RowBox[{"extincted", " ", "=", " ", "False"}], ";", 
-               "\[IndentingNewLine]", 
-               RowBox[{"(*", " ", 
-                RowBox[{
-                "keep", " ", "on", " ", "moving", " ", "the", " ", "light", 
-                 " ", "ray", " ", "forward", " ", "until", " ", "it", " ", 
-                 "gets", " ", "all", " ", "the", " ", "way", " ", "through", 
-                 " ", "the", " ", "atmosphere", " ", "or", " ", "is", " ", 
-                 "completely", " ", "extincted"}], " ", "*)"}], 
-               "\[IndentingNewLine]", 
-               RowBox[{"While", "[", 
+                "to", " ", "be", " ", "changed", " ", "upon", " ", 
+                 "extinction"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+              "\[IndentingNewLine]", 
+              RowBox[{"(*", " ", 
+               RowBox[{"initialize", " ", "lists", " ", "of", " ", "data"}], 
+               " ", "*)"}], "\[IndentingNewLine]", 
+              RowBox[{"intersectionPoints", " ", "=", " ", 
+               RowBox[{"{", "origin", "}"}]}], ";", "\[IndentingNewLine]", 
+              RowBox[{"angleList", " ", "=", " ", 
+               RowBox[{"{", "angle", "}"}]}], ";", "\[IndentingNewLine]", 
+              "\[IndentingNewLine]", 
+              RowBox[{"moveLightRay", "[", 
+               RowBox[{"intersectionPoints", ",", 
+                RowBox[{"Last", "[", "angleList", "]"}], ",", "atmosphere"}], 
+               "]"}], ";", " ", 
+              RowBox[{"(*", " ", 
+               RowBox[{
+               "move", " ", "the", " ", "light", " ", "ray", " ", "up", " ", 
+                "to", " ", "the", " ", "first", " ", "atmosphere", " ", 
+                "encounter"}], " ", "*)"}], "\[IndentingNewLine]", 
+              "\[IndentingNewLine]", 
+              RowBox[{"extincted", " ", "=", " ", "False"}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"(*", " ", 
+               RowBox[{
+               "keep", " ", "on", " ", "moving", " ", "the", " ", "light", 
+                " ", "ray", " ", "forward", " ", "until", " ", "it", " ", 
+                "gets", " ", "all", " ", "the", " ", "way", " ", "through", 
+                " ", "the", " ", "atmosphere", " ", "or", " ", "is", " ", 
+                "completely", " ", "extincted"}], " ", "*)"}], 
+              "\[IndentingNewLine]", 
+              RowBox[{"While", "[", 
+               RowBox[{
                 RowBox[{
                  RowBox[{
-                  RowBox[{
-                   RowBox[{"Norm", "[", 
-                    RowBox[{"Last", "[", "intersectionPoints", "]"}], "]"}], "<=",
-                    " ", "atmMax"}], " ", "&&", " ", 
-                  RowBox[{"!", "extincted"}]}], ",", "\[IndentingNewLine]", 
-                 RowBox[{
-                  RowBox[{"moveLightRay", "[", 
-                   RowBox[{"intersectionPoints", ",", 
-                    RowBox[{"Last", "[", "angleList", "]"}], ",", 
-                    "atmosphere"}], "]"}], ";"}]}], "\[IndentingNewLine]", 
-                "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-               RowBox[{"(*", " ", 
+                  RowBox[{"Norm", "[", 
+                   RowBox[{"Last", "[", "intersectionPoints", "]"}], "]"}], "<=",
+                   " ", "atmMax"}], " ", "&&", " ", 
+                 RowBox[{"!", "extincted"}]}], ",", "\[IndentingNewLine]", 
                 RowBox[{
-                "put", " ", "the", " ", "results", " ", "in", " ", "the", " ",
-                  "appropriate", " ", "lists"}], " ", "*)"}], 
-               "\[IndentingNewLine]", 
-               RowBox[{"If", "[", 
+                 RowBox[{"moveLightRay", "[", 
+                  RowBox[{"intersectionPoints", ",", 
+                   RowBox[{"Last", "[", "angleList", "]"}], ",", 
+                   "atmosphere"}], "]"}], ";"}]}], "\[IndentingNewLine]", 
+               "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{"(*", " ", 
+               RowBox[{
+               "put", " ", "the", " ", "results", " ", "in", " ", "the", " ", 
+                "appropriate", " ", "lists"}], " ", "*)"}], 
+              "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{"!", "extincted"}], ",", "\[IndentingNewLine]", 
                 RowBox[{
-                 RowBox[{"!", "extincted"}], ",", "\[IndentingNewLine]", 
-                 RowBox[{
-                  RowBox[{"AppendTo", "[", 
-                   RowBox[{"startingPosition", ",", 
-                    RowBox[{"{", 
+                 RowBox[{"AppendTo", "[", 
+                  RowBox[{"startingPosition", ",", 
+                   RowBox[{"{", 
                     RowBox[{
                     RowBox[{
                     RowBox[{"-", "atmMax"}], "*", "1.25"}], ",", "yStart"}], 
                     "}"}]}], "]"}], ";", "\[IndentingNewLine]", 
-                  "\[IndentingNewLine]", 
-                  RowBox[{"AppendTo", "[", 
-                   RowBox[{"endingPosition", ",", 
-                    RowBox[{"Last", "[", "intersectionPoints", "]"}]}], "]"}],
-                   ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-                  RowBox[{"AppendTo", "[", 
-                   RowBox[{"totalRefraction", ",", 
-                    RowBox[{"Last", "[", "angleList", "]"}]}], "]"}], ";", 
-                  "\[IndentingNewLine]", "\[IndentingNewLine]", 
-                  RowBox[{"AppendTo", "[", 
-                   RowBox[{"finalFlux", ",", "currentRayFlux"}], "]"}], ";", 
-                  " ", 
-                  RowBox[{"(*", " ", 
+                 "\[IndentingNewLine]", 
+                 RowBox[{"AppendTo", "[", 
+                  RowBox[{"endingPosition", ",", 
+                   RowBox[{"Last", "[", "intersectionPoints", "]"}]}], "]"}], 
+                 ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                 RowBox[{"AppendTo", "[", 
+                  RowBox[{"totalRefraction", ",", 
+                   RowBox[{"Last", "[", "angleList", "]"}]}], "]"}], ";", 
+                 "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                 RowBox[{"AppendTo", "[", 
+                  RowBox[{"finalFlux", ",", "currentRayFlux"}], "]"}], ";", 
+                 " ", 
+                 RowBox[{"(*", " ", 
+                  RowBox[{
+                  "append", " ", "twice", " ", "for", " ", "top", " ", "and", 
+                   " ", "bottom", " ", "versions"}], " ", "*)"}], 
+                 "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                 RowBox[{"(*", " ", 
+                  RowBox[{
                    RowBox[{
-                   "append", " ", "twice", " ", "for", " ", "top", " ", "and",
-                     " ", "bottom", " ", "versions"}], " ", "*)"}], 
-                  "\[IndentingNewLine]", "\[IndentingNewLine]", 
-                  RowBox[{"(*", " ", 
-                   RowBox[{
-                    RowBox[{
                     RowBox[{
                     RowBox[{
                     "removes", " ", "the", " ", "last", " ", "intersection", 
                     " ", "point", " ", "because", " ", "that", " ", "one", 
                     " ", "will", " ", "be", " ", "at", " ", "the", " ", 
                     "observer", " ", "location"}], "..."}], " ", "far"}], ",",
-                     " ", 
-                    RowBox[{"far", " ", "away"}]}], " ", "*)"}], 
-                  "\[IndentingNewLine]", 
-                  RowBox[{"intersectionWithoutLast", " ", "=", " ", 
-                   RowBox[{"intersectionPoints", "[", 
-                    RowBox[{"[", 
+                    " ", 
+                   RowBox[{"far", " ", "away"}]}], " ", "*)"}], 
+                 "\[IndentingNewLine]", 
+                 RowBox[{"intersectionWithoutLast", " ", "=", " ", 
+                  RowBox[{"intersectionPoints", "[", 
+                   RowBox[{"[", 
                     RowBox[{"1", ";;", 
                     RowBox[{
                     RowBox[{"Length", "[", "intersectionPoints", "]"}], "-", 
                     "1"}]}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
-                  RowBox[{"AppendTo", "[", 
-                   RowBox[{"atmGraphics", ",", 
-                    RowBox[{"{", 
+                 RowBox[{"AppendTo", "[", 
+                  RowBox[{"atmGraphics", ",", 
+                   RowBox[{"{", 
                     RowBox[{
                     RowBox[{"Graphics", "[", 
                     RowBox[{"{", 
@@ -2840,25 +2871,25 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{
                     "ListLinePlot", "[", "intersectionWithoutLast", "]"}]}], 
                     "}"}]}], "]"}], ";", "\[IndentingNewLine]", 
-                  "\[IndentingNewLine]", 
-                  RowBox[{"AppendTo", "[", 
-                   RowBox[{"numIntersectionPoints", ",", 
-                    RowBox[{"{", 
+                 "\[IndentingNewLine]", 
+                 RowBox[{"AppendTo", "[", 
+                  RowBox[{"numIntersectionPoints", ",", 
+                   RowBox[{"{", 
                     RowBox[{"yStart", ",", 
                     RowBox[{
                     RowBox[{"Length", "[", "intersectionPoints", "]"}], "-", 
                     "2"}]}], "}"}]}], "]"}], ";", " ", 
-                  RowBox[{"(*", " ", 
+                 RowBox[{"(*", " ", 
+                  RowBox[{
+                  "minus", " ", "2", " ", "for", " ", "start", " ", "and", 
+                   " ", "end", " ", "points"}], "*)"}], "\[IndentingNewLine]",
+                  "\[IndentingNewLine]", 
+                 RowBox[{"If", "[", 
+                  RowBox[{
                    RowBox[{
-                   "minus", " ", "2", " ", "for", " ", "start", " ", "and", 
-                    " ", "end", " ", "points"}], "*)"}], 
-                  "\[IndentingNewLine]", "\[IndentingNewLine]", 
-                  RowBox[{"If", "[", 
-                   RowBox[{
-                    RowBox[{
                     RowBox[{"Length", "[", "startingPosition", "]"}], ">", 
                     "1"}], ",", "\[IndentingNewLine]", 
-                    RowBox[{
+                   RowBox[{
                     RowBox[{"AppendTo", "[", 
                     RowBox[{"d\[Theta]Overdy", ",", 
                     RowBox[{"{", 
@@ -2886,30 +2917,28 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"beamsHittingAtm", " ", "=", " ", 
                     RowBox[{"beamsHittingAtm", " ", "+", " ", "1"}]}], 
                     ";"}]}], "\[IndentingNewLine]", "]"}]}], ",", 
-                 "\[IndentingNewLine]", "\[IndentingNewLine]", 
-                 RowBox[{"(*", " ", 
-                  RowBox[{
-                   RowBox[{
-                   "if", " ", "the", " ", "light", " ", "was", " ", 
-                    "extincted"}], ",", " ", 
-                   RowBox[{
-                   "skip", " ", "over", " ", "the", " ", "rest", " ", "of", 
-                    " ", "the", " ", "beams", " ", "that", " ", "would", " ", 
-                    "be"}], ",", " ", 
-                   RowBox[{"assuming", " ", "symmetry"}]}], " ", "*)"}], 
-                 "\[IndentingNewLine]", 
+                "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                RowBox[{"(*", " ", 
                  RowBox[{
-                  RowBox[{"extinctionY", " ", "=", " ", "yStart"}], ";"}]}], 
-                "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
-               "\[IndentingNewLine]", 
-               RowBox[{"NotebookDelete", "[", "yMultTemp", "]"}], ";"}]}], 
-             "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
-           RowBox[{"{", 
-            RowBox[{
-            "yMultFact", ",", "maxLightY", ",", "minLightY", ",", 
-             "stepLightY"}], "}"}]}], "\[IndentingNewLine]", "]"}], " ", 
-         "\[IndentingNewLine]", 
-         RowBox[{"NotebookDelete", "[", "layersPrint", "]"}]}], ";"}]}], 
+                  RowBox[{
+                  "if", " ", "the", " ", "light", " ", "was", " ", 
+                   "extincted"}], ",", " ", 
+                  RowBox[{
+                  "skip", " ", "over", " ", "the", " ", "rest", " ", "of", 
+                   " ", "the", " ", "beams", " ", "that", " ", "would", " ", 
+                   "be"}], ",", " ", 
+                  RowBox[{"assuming", " ", "symmetry"}]}], " ", "*)"}], 
+                "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"extinctionY", " ", "=", " ", "yStart"}], ";"}]}], 
+               "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+              "\[IndentingNewLine]", 
+              RowBox[{"NotebookDelete", "[", "yMultTemp", "]"}], ";"}]}], 
+            "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{
+           "yMultFact", ",", "maxLightY", ",", "minLightY", ",", 
+            "stepLightY"}], "}"}]}], "\[IndentingNewLine]", "]"}]}]}], " ", 
       "\[IndentingNewLine]", 
       RowBox[{"(*", 
        RowBox[{
@@ -2938,7 +2967,14 @@ happen\>\"", "]"}], ";", "\[IndentingNewLine]",
    3.630772800796302*^9, 3.630772834678349*^9}, 3.6307781607939787`*^9, {
    3.6307785135560102`*^9, 3.630778514338566*^9}, {3.630781274729087*^9, 
    3.630781352882484*^9}, {3.6307814105933924`*^9, 3.630781411111759*^9}, 
-   3.6307815540090675`*^9, {3.6307827386047564`*^9, 3.6307828225592504`*^9}}]
+   3.6307815540090675`*^9, {3.6307827386047564`*^9, 3.6307828225592504`*^9}, {
+   3.6308132628757544`*^9, 3.630813289812621*^9}, {3.6308137927173986`*^9, 
+   3.630813794819889*^9}, {3.6308138677766027`*^9, 3.6308138684100814`*^9}, {
+   3.6308141400475993`*^9, 3.6308141432888956`*^9}, {3.6308142116655226`*^9, 
+   3.630814219259923*^9}, {3.630814251351652*^9, 3.630814262824785*^9}, {
+   3.630814331787267*^9, 3.6308143818037205`*^9}, {3.6308149565894938`*^9, 
+   3.630814959448519*^9}, 3.630815024651752*^9, {3.6308151218476343`*^9, 
+   3.630815133239709*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3414,7 +3450,7 @@ Cell[BoxData[
    3.630422589298896*^9, 3.6304225896791654`*^9}, {3.630422635115393*^9, 
    3.630422635529687*^9}, {3.630433096322998*^9, 3.6304330968113384`*^9}, 
    3.6304344087759237`*^9}]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3478,39 +3514,45 @@ Cell[BoxData[{
     RowBox[{"50", ",", "40", ",", "60", ",", "50", ",", "70"}], "}"}]}], 
   ";"}], "\n", 
  RowBox[{
-  RowBox[{"boundaryM", "=", 
-   RowBox[{"ConstantArray", "[", 
-    RowBox[{"MN2", ",", 
-     RowBox[{"Length", "[", "radii", "]"}]}], "]"}]}], ";", 
+  RowBox[{
+   RowBox[{"boundaryM", "=", 
+    RowBox[{"ConstantArray", "[", 
+     RowBox[{"MN2", ",", 
+      RowBox[{"Length", "[", "radii", "]"}]}], "]"}]}], ";"}], 
   RowBox[{"(*", 
-   RowBox[{"constant", " ", "composition"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"constant", " ", "composition"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
   RowBox[{"P0", "=", "0.3"}], ";"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"boundary\[Alpha]z", "=", 
     RowBox[{"{", 
      RowBox[{"0.0000001", ",", "0.0000001", ",", "0", ",", "0", ",", "0"}], 
-     "}"}]}], ";", 
-   RowBox[{"(*", 
+     "}"}]}], ";"}], 
+  RowBox[{"(*", 
+   RowBox[{
     RowBox[{
-     RowBox[{
-     "only", " ", "haze", " ", "at", " ", "the", " ", "bottom", " ", 
-      "layer"}], "-", 
-     RowBox[{
-     "TODO", " ", "using", " ", "arbitrary", " ", "number", " ", "for", " ", 
-      "now"}]}], "*)"}], "\[IndentingNewLine]", 
+    "only", " ", "haze", " ", "at", " ", "the", " ", "bottom", " ", "layer"}],
+     "-", 
+    RowBox[{
+    "TODO", " ", "using", " ", "arbitrary", " ", "number", " ", "for", " ", 
+     "now"}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{"boundary\[Alpha]", "=", 
     RowBox[{"ConstantArray", "[", 
      RowBox[{"\[Alpha]N2", ",", 
-      RowBox[{"Length", "[", "radii", "]"}]}], "]"}]}], ";", " ", 
-   RowBox[{"(*", " ", 
+      RowBox[{"Length", "[", "radii", "]"}]}], "]"}]}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
     RowBox[{
-     RowBox[{
-      RowBox[{"mean", " ", "polarizability"}], " ", "-", " ", "here"}], ",", 
-     " ", 
-     RowBox[{
-     "we", " ", "assume", " ", "everything", " ", "is", " ", "N2", " ", 
-      "gas"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"mean", " ", "polarizability"}], " ", "-", " ", "here"}], ",", 
+    " ", 
+    RowBox[{
+    "we", " ", "assume", " ", "everything", " ", "is", " ", "N2", " ", 
+     "gas"}]}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{
    "exportFolderPath", "=", 
     "\"\</Users/Hosea/Dropbox (MIT)//Academic/12.ThG/TestAtmospheres\>\""}], 
@@ -3656,12 +3698,14 @@ Cell[BoxData[{
 Cell[CellGroupData[{
 
 Cell[BoxData["\<\"ray tracing...\"\>"], "Print",
- CellChangeTimes->{{3.630781731775057*^9, 3.6307817420203304`*^9}, 
-   3.6307828339773445`*^9}],
+ CellChangeTimes->{{3.630813139364189*^9, 3.630813153131934*^9}, 
+   3.630813759330733*^9, 3.6308138736077366`*^9, 3.630814403175868*^9, 
+   3.630814966157275*^9, 3.6308150309433765`*^9, 3.630815264083294*^9}],
 
 Cell[BoxData["\<\"done ray tracing\"\>"], "Print",
- CellChangeTimes->{{3.630781731775057*^9, 3.6307817420203304`*^9}, 
-   3.6307828482835054`*^9}]
+ CellChangeTimes->{{3.630813139364189*^9, 3.630813153131934*^9}, 
+   3.630813759330733*^9, 3.6308138736077366`*^9, 3.630814403175868*^9, 
+   3.630814966157275*^9, 3.6308150309433765`*^9, 3.63081527779101*^9}]
 }, Open  ]]
 }, Open  ]],
 
@@ -3698,7 +3742,9 @@ Cell[BoxData[{
    3.6303552815541644`*^9}, {3.630418771605709*^9, 3.630418773624131*^9}}],
 
 Cell[BoxData["\<\"making ray trace graphic...\"\>"], "Print",
- CellChangeTimes->{3.630781756800796*^9, 3.630782848345529*^9}],
+ CellChangeTimes->{3.6308131643588924`*^9, 3.630813771467335*^9, 
+  3.630813888811513*^9, 3.6308144165873747`*^9, 3.630814978470003*^9, 
+  3.630815045613596*^9, 3.6308152779771404`*^9}],
 
 Cell[BoxData[
  GraphicsBox[{
@@ -5838,10 +5884,14 @@ EiXh1PU9TkKctzDYNPZA5v8A0KFpyg==
        "]]}}, {}}, 
    {RGBColor[0.18, 0.12000000000000005`, 0.060000000000000026`], 
     DiskBox[{0, 0}, 1.195*^6]}}]], "Output",
- CellChangeTimes->{3.630781757182064*^9, 3.6307828486347523`*^9}],
+ CellChangeTimes->{3.6308131646470985`*^9, 3.6308137717085056`*^9, 
+  3.6308138891077223`*^9, 3.630814416887601*^9, 3.63081497864813*^9, 
+  3.630815045901801*^9, 3.6308152782803555`*^9}],
 
 Cell[BoxData["\<\"done making ray trace graphic\"\>"], "Print",
- CellChangeTimes->{3.630781756800796*^9, 3.630782848636735*^9}]
+ CellChangeTimes->{3.6308131643588924`*^9, 3.630813771467335*^9, 
+  3.630813888811513*^9, 3.6308144165873747`*^9, 3.630814978470003*^9, 
+  3.630815045613596*^9, 3.630815278281356*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -5879,10 +5929,14 @@ Cell[BoxData[{
 Cell[CellGroupData[{
 
 Cell[BoxData["\<\"interpolating lightcurve...\"\>"], "Print",
- CellChangeTimes->{3.6307817571990786`*^9, 3.6307828486507597`*^9}],
+ CellChangeTimes->{3.630813164655103*^9, 3.6308137717215166`*^9, 
+  3.6308138891157284`*^9, 3.6308144168955936`*^9, 3.6308149786641407`*^9, 
+  3.630815045908824*^9, 3.630815278289363*^9}],
 
 Cell[BoxData["\<\"done interpolating lightcurve\"\>"], "Print",
- CellChangeTimes->{3.6307817571990786`*^9, 3.630782848652746*^9}]
+ CellChangeTimes->{3.630813164655103*^9, 3.6308137717215166`*^9, 
+  3.6308138891157284`*^9, 3.6308144168955936`*^9, 3.6308149786641407`*^9, 
+  3.630815045908824*^9, 3.630815278320405*^9}]
 }, Open  ]]
 }, Open  ]],
 
@@ -5921,11 +5975,14 @@ Cell[BoxData[{
    3.6304343292025194`*^9}, {3.630434426498515*^9, 3.6304344269788556`*^9}}],
 
 Cell[BoxData["\<\"making lightcurve graphic...\"\>"], "Print",
- CellChangeTimes->{3.6307817572170887`*^9, 3.6307828486687717`*^9}],
+ CellChangeTimes->{3.630813164701149*^9, 3.6308137717445316`*^9, 
+  3.6308138891237335`*^9, 3.6308144169306326`*^9, 3.6308149786771493`*^9, 
+  3.6308150459158106`*^9, 3.63081527832739*^9}],
 
 Cell[BoxData[
  GraphicsBox[{{}, {}, 
-   {RGBColor[0, 0, 0], Thickness[0.0025], Opacity[1.], LineBox[CompressedData["
+   {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1.6], Opacity[
+    1.], LineBox[CompressedData["
 1:eJxF2nk8VN//B3BJZE0qa2WXJZntzgzRcWRPRCplSSqisrRJkVRabSFSUmkh
 ZG+TylH2Eir72EOYubZK1t/1e3w/Y/6YeTwfj5n3+94z99x7Z15H0c3H7iAv
 Dw8PhXiaf937OOVS3W4zNPf/Dxw4MOecA3tMubb7vJOh5rPg53ltSYW+JlwX
@@ -6105,24 +6162,21 @@ RduJJ/4XN3OtdDBnR8NhY64l1q+yHfcw4XrbRxsTbLsp1415Uz0X6xf8v/Uw
 XP8fjPSpKw==
      "]]}},
   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-  Axes->{False, False},
+  Axes->{True, True},
   AxesLabel->{
     FormBox["\"y distance (m)\"", TraditionalForm], 
     FormBox["\"flux\"", TraditionalForm]},
   AxesOrigin->{0, 0.32},
-  BaseStyle->{FontFamily -> "Helvetica", FontSize -> 14},
   DisplayFunction->Identity,
-  Frame->{{True, True}, {True, True}},
+  Frame->{{False, False}, {False, False}},
   FrameLabel->{{None, None}, {None, None}},
-  FrameStyle->Directive[
-    Thickness[0.0025]],
   FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
   GridLines->{None, None},
   GridLinesStyle->Directive[
     GrayLevel[0.5, 0.4]],
-  ImageSize->400,
   Method->{"DefaultBoundaryStyle" -> Automatic, "ScalingFunctions" -> None},
-  PlotRange->{All, All},
+  PlotRange->{{-3.0606451612903224`*^6, 3.0606451612903224`*^6}, {
+   0.3499325649434475, 1.0000116191846384`}},
   PlotRangeClipping->True,
   PlotRangePadding->{{
      Scaled[0.02], 
@@ -6130,10 +6184,14 @@ XP8fjPSpKw==
      Scaled[0.05], 
      Scaled[0.05]}},
   Ticks->{Automatic, Automatic}]], "Output",
- CellChangeTimes->{3.6307817573601904`*^9, 3.6307828487898626`*^9}],
+ CellChangeTimes->{3.6308131648392515`*^9, 3.6308137718596134`*^9, 
+  3.630813889242818*^9, 3.630814417051706*^9, 3.630814978726184*^9, 
+  3.6308150460238886`*^9, 3.630815278456498*^9}],
 
 Cell[BoxData["\<\"done\"\>"], "Print",
- CellChangeTimes->{3.6307817572170887`*^9, 3.6307828487918453`*^9}]
+ CellChangeTimes->{3.630813164701149*^9, 3.6308137717445316`*^9, 
+  3.6308138891237335`*^9, 3.6308144169306326`*^9, 3.6308149786771493`*^9, 
+  3.6308150459158106`*^9, 3.6308152784574814`*^9}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -6240,97 +6298,97 @@ Cell[5565, 163, 2862, 74, 196, "Input",
 Cell[CellGroupData[{
 Cell[8464, 242, 135, 2, 41, "Subsection",
  InitializationCell->True],
-Cell[8602, 246, 14825, 341, 1345, "Input",
- InitializationCell->True]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[23464, 592, 150, 2, 49, "Subsection",
- InitializationCell->True],
-Cell[23617, 596, 19170, 436, 1546, "Input",
- InitializationCell->True]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[42824, 1037, 137, 2, 49, "Subsection",
- InitializationCell->True],
-Cell[42964, 1041, 10270, 247, 406, "Input",
- InitializationCell->True]
-}, Closed]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[53283, 1294, 260, 5, 70, "Section",
- InitializationCell->True,
- InitializationGroup->True],
-Cell[CellGroupData[{
-Cell[53568, 1303, 133, 2, 49, "Subsection",
- InitializationCell->True],
-Cell[53704, 1307, 1728, 43, 146, "Input",
+Cell[8602, 246, 15308, 350, 1331, "Input",
  InitializationCell->True]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[55469, 1355, 161, 3, 41, "Subsection",
+Cell[23947, 601, 150, 2, 41, "Subsection",
  InitializationCell->True],
-Cell[55633, 1360, 19955, 464, 1874, "Input",
+Cell[24100, 605, 19745, 448, 1886, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[75625, 1829, 138, 2, 49, "Subsection",
+Cell[43882, 1058, 137, 2, 49, "Subsection",
  InitializationCell->True],
-Cell[75766, 1833, 52385, 1107, 5392, "Input",
+Cell[44022, 1062, 10270, 247, 406, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[54341, 1315, 260, 5, 70, "Section",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[54626, 1324, 133, 2, 49, "Subsection",
+ InitializationCell->True],
+Cell[54762, 1328, 1728, 43, 146, "Input",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[56527, 1376, 161, 3, 41, "Subsection",
+ InitializationCell->True],
+Cell[56691, 1381, 20682, 479, 1914, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[128188, 2945, 201, 3, 49, "Subsection",
+Cell[77410, 1865, 138, 2, 49, "Subsection",
  InitializationCell->True],
-Cell[128392, 2950, 14780, 327, 1186, "Input",
+Cell[77551, 1869, 52322, 1107, 5332, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[143209, 3282, 137, 2, 49, "Subsection",
+Cell[129910, 2981, 201, 3, 49, "Subsection",
  InitializationCell->True],
-Cell[143349, 3286, 5760, 129, 352, "Input",
+Cell[130114, 2986, 14780, 327, 1186, "Input",
  InitializationCell->True]
-}, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[149158, 3421, 147, 2, 70, "Section"],
-Cell[CellGroupData[{
-Cell[149330, 3427, 214, 3, 49, "Subsection"],
-Cell[149547, 3432, 5358, 133, 426, "Input"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[154942, 3570, 109, 1, 49, "Subsection"],
-Cell[155054, 3573, 2523, 46, 66, "Input"],
-Cell[CellGroupData[{
-Cell[157602, 3623, 1935, 30, 86, "Input"],
-Cell[CellGroupData[{
-Cell[159562, 3657, 144, 2, 23, "Print"],
-Cell[159709, 3661, 146, 2, 23, "Print"]
+Cell[144931, 3318, 137, 2, 49, "Subsection",
+ InitializationCell->True],
+Cell[145071, 3322, 5760, 129, 366, "Input",
+ InitializationCell->True]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[159904, 3669, 1853, 28, 86, "Input"],
-Cell[161760, 3699, 125, 1, 23, "Print"],
-Cell[161888, 3702, 124210, 2138, 427, "Output"],
-Cell[286101, 5842, 127, 1, 23, "Print"]
+Cell[150880, 3457, 147, 2, 70, "Section"],
+Cell[CellGroupData[{
+Cell[151052, 3463, 214, 3, 49, "Subsection"],
+Cell[151269, 3468, 5420, 139, 412, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[286265, 5848, 1799, 28, 86, "Input"],
+Cell[156726, 3612, 109, 1, 49, "Subsection"],
+Cell[156838, 3615, 2523, 46, 66, "Input"],
 Cell[CellGroupData[{
-Cell[288089, 5880, 129, 1, 23, "Print"],
-Cell[288221, 5883, 129, 1, 23, "Print"]
+Cell[159386, 3665, 1935, 30, 86, "Input"],
+Cell[CellGroupData[{
+Cell[161346, 3699, 258, 3, 23, "Print"],
+Cell[161607, 3704, 259, 3, 23, "Print"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[288399, 5890, 2112, 30, 86, "Input"],
-Cell[290514, 5922, 130, 1, 23, "Print"],
-Cell[290647, 5925, 11831, 207, 277, "Output"],
-Cell[302481, 6134, 106, 1, 23, "Print"]
+Cell[161915, 3713, 1853, 28, 86, "Input"],
+Cell[163771, 3743, 247, 3, 23, "Print"],
+Cell[164021, 3748, 124331, 2140, 427, "Output"],
+Cell[288355, 5890, 247, 3, 23, "Print"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[288639, 5898, 1799, 28, 86, "Input"],
+Cell[CellGroupData[{
+Cell[290463, 5930, 249, 3, 23, "Print"],
+Cell[290715, 5935, 251, 3, 23, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[291015, 5944, 2112, 30, 86, "Input"],
+Cell[293130, 5976, 251, 3, 23, "Print"],
+Cell[293384, 5981, 11945, 207, 235, "Output"],
+Cell[305332, 6190, 230, 3, 23, "Print"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[302648, 6142, 115, 1, 70, "Section"],
-Cell[302766, 6145, 2178, 48, 266, "Input"]
+Cell[305623, 6200, 115, 1, 70, "Section"],
+Cell[305741, 6203, 2178, 48, 286, "Input"]
 }, Open  ]]
 }, Open  ]]
 }
